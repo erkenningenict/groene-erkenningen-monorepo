@@ -1,0 +1,13 @@
+
+
+
+# Ignore everything in this directory
+!packages/WordPressSite/wp-data/
+/packages/WordPressSite/wp-data/*
+!/packages/WordPressSite/wp-data/wp-content/
+/packages/WordPressSite/wp-data/wp-content/*
+!/packages/WordPressSite/wp-data/wp-content/plugins/
+/packages/WordPressSite/wp-data/wp-content/plugins/*
+!/packages/WordPressSite/wp-data/wp-content/plugins/fw_module_loader/
+
+node_modules
