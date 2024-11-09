@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: ModuleLoader
-Description: Loads a hosted React site in a shortcode.
+Plugin Name: FW Module Loader
+Description: Loads a hosted React site in a shortcode. Use the shortcode [module_loader url="https://example.com/module"]
 Version: 1.0
 Author: Focus Wider (Didier Hartong)
 */
