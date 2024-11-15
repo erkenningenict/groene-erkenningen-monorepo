@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: FW Module Loader
+Plugin Name: Module Loader
 Description: Loads a hosted React site in a shortcode. Use the shortcode [module_loader url="https://example.com/module"]
 Version: 1.0
 Author: Focus Wider (Didier Hartong)
@@ -62,17 +62,12 @@ class ModuleLoaderHelper
     public function render()
     {
         if (!$this->url) {
-            return "<div>URL not configured</div>";
+            return "<div>URL " . $this->url . "not configured</div>";
         }
 
-        // $contents = ''
         try {
-            // $content = $this->curl_get_contents($this->url);
+            $content = $this->curl_get_contents($this->url);
 
-            $content = $this->curl_get_contents($this->url . "?_c=" . time());
-            if (!$contents) {
-                return "<div>Failed to retrieve contents</div>";
-            }
             $dom = new DOMDocument();
             try {
                 @$dom->loadHTML(
@@ -134,29 +129,23 @@ class ModuleLoaderHelper
     }
 }
 
-function module_loader($atts = [])
+function module_loader_shortcode($atts)
 {
-    $defaults = [
-        "url" => "default_val",
-        "param2" => "pa2",
-    ];
+    $atts = is_array($atts) ? $atts : [];
+    $data = shortcode_atts(
+        [
+            "url" => "default_url",
+        ],
+        $atts,
+        "module_loader"
+    );
 
-    $atts = shortcode_atts($defaults, $atts, "module_loader_shortcode");
-    ?>
-<?php
-try {
-    $loader = new ModuleLoaderHelper($atts["url"]);
-} catch (Exception $e) {
-    return "<div>Error: " . $e->getMessage() . "</div>";
-}
-return $loader->render();
-}
-function module_loader_shortcode($atts = [])
-{
-    try {
-        return module_loader($atts);
-    } catch (Exception $e) {
-        return "<div>Error: " . $e->getMessage() . "</div>";
+    if ($data["url"] === "default_url") {
+        return "<div>Error: no url provided. Check that the attribute is not a link (remove the link). It should be text.</div>";
     }
+
+    $loader = new ModuleLoaderHelper($data["url"]);
+    return $loader->render();
 }
-add_shortcode("module_loader", "module_loader_shortcode"); // include plugin_dir_path(__FILE__) . "options.php";
+
+add_shortcode("module_loader", "module_loader_shortcode");
