@@ -3,7 +3,7 @@ for = "/*"
 [headers.values]
 ACCESS-CONTROL-ALLOW-ORIGIN = "*"
 [build]
-publish = "apps/calendar/dist"
+publish = "dist"
 command = "bun run build:netlify"
 [context.production.environment]
 NODE_ENV = "production"
