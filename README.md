@@ -79,3 +79,11 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
 - [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
 - [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+
+
+## ShadCN library
+
+See for usage:
+https://github.com/dan5py/turborepo-shadcn-ui/blob/bun/README.md
+
+`bun ui add <component-name>`
