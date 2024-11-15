@@ -4,7 +4,7 @@ for = "/*"
 ACCESS-CONTROL-ALLOW-ORIGIN = "*"
 [build]
 publish = "apps/calendar/dist"
-command = "npm run build:netlify"
+command = "bun run build:netlify"
 [context.production.environment]
 NODE_ENV = "production"
 [context.acceptance.environment]
