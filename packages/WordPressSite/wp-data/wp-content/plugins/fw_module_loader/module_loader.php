@@ -65,54 +65,72 @@ class ModuleLoaderHelper
             return "<div>URL not configured</div>";
         }
 
-        $content = $this->curl_get_contents($this->url . "?_c=" . time());
-        if ($contents === false) {
+        // $contents = ''
+        try {
+            // $content = $this->curl_get_contents($this->url);
+
+            $content = $this->curl_get_contents($this->url . "?_c=" . time());
+            if (!$contents) {
+                return "<div>Failed to retrieve contents</div>";
+            }
+            $dom = new DOMDocument();
+            try {
+                @$dom->loadHTML(
+                    $content,
+                    LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+                );
+            } catch (Exception $e) {
+                return "<div>Failed to load HTML</div>";
+            }
+
+            $moduleEntry = $dom->getElementsByTagName("div");
+
+            if ($moduleEntry->length === 0) {
+                error_log(
+                    "Could not load external module. No module entry found."
+                );
+                return "<div>URL not configured</div>";
+            }
+            if ($moduleEntry->length > 1) {
+                error_log("Multiple module entries found");
+                return "<div>Multiple module entries found</div>";
+            }
+
+            $rootElemId = $moduleEntry[0]->getAttribute("id");
+            $output = "";
+
+            // Load CSS
+            $links = $dom->getElementsByTagName("link");
+            foreach ($links as $link) {
+                if ($link->hasAttribute("href")) {
+                    $href =
+                        $this->url . ltrim($link->getAttribute("href"), "/");
+                    $output .= $this->loadCss($rootElemId, $href);
+                }
+            }
+            // Load external scripts
+            $scripts = $dom->getElementsByTagName("script");
+            foreach ($scripts as $script) {
+                if ($script->hasAttribute("src")) {
+                    $src =
+                        $this->url . ltrim($script->getAttribute("src"), "/");
+                    $output .= $this->loadExternalScript($rootElemId, $src);
+                }
+            }
+            // Load inline scripts
+            foreach ($scripts as $script) {
+                if (!$script->hasAttribute("src")) {
+                    $output .= $this->loadInlineScript(
+                        $rootElemId,
+                        $script->textContent
+                    );
+                }
+            } // Add root element
+            $output .= "<div id=\"$rootElemId\">Laden...</div>";
+            return $output;
+        } catch (Exception $e) {
             return "<div>Failed to retrieve contents</div>";
         }
-        $dom = new DOMDocument();
-        @$dom->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-        $moduleEntry = $dom->getElementsByTagName("div");
-
-        if ($moduleEntry->length === 0) {
-            error_log("Could not load external module. No module entry found.");
-            return "<div>URL not configured</div>";
-        }
-        if ($moduleEntry->length > 1) {
-            error_log("Multiple module entries found");
-            return "<div>Multiple module entries found</div>";
-        }
-
-        $rootElemId = $moduleEntry[0]->getAttribute("id");
-        $output = "";
-
-        // Load CSS
-        $links = $dom->getElementsByTagName("link");
-        foreach ($links as $link) {
-            if ($link->hasAttribute("href")) {
-                $href = $this->url . ltrim($link->getAttribute("href"), "/");
-                $output .= $this->loadCss($rootElemId, $href);
-            }
-        }
-        // Load external scripts
-        $scripts = $dom->getElementsByTagName("script");
-        foreach ($scripts as $script) {
-            if ($script->hasAttribute("src")) {
-                $src = $this->url . ltrim($script->getAttribute("src"), "/");
-                $output .= $this->loadExternalScript($rootElemId, $src);
-            }
-        }
-        // Load inline scripts
-        foreach ($scripts as $script) {
-            if (!$script->hasAttribute("src")) {
-                $output .= $this->loadInlineScript(
-                    $rootElemId,
-                    $script->textContent
-                );
-            }
-        } // Add root element
-        $output .= "<div id=\"$rootElemId\">Laden...</div>";
-        return $output;
     }
 }
 
@@ -122,14 +140,23 @@ function module_loader($atts = [])
         "url" => "default_val",
         "param2" => "pa2",
     ];
+
     $atts = shortcode_atts($defaults, $atts, "module_loader_shortcode");
     ?>
 <?php
-$loader = new ModuleLoaderHelper($atts["url"]);
+try {
+    $loader = new ModuleLoaderHelper($atts["url"]);
+} catch (Exception $e) {
+    return "<div>Error: " . $e->getMessage() . "</div>";
+}
 return $loader->render();
 }
 function module_loader_shortcode($atts = [])
 {
-    return module_loader($atts);
+    try {
+        return module_loader($atts);
+    } catch (Exception $e) {
+        return "<div>Error: " . $e->getMessage() . "</div>";
+    }
 }
 add_shortcode("module_loader", "module_loader_shortcode"); // include plugin_dir_path(__FILE__) . "options.php";
