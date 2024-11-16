@@ -1,0 +1,1 @@
+ALTER TABLE "examenMomenten" ADD COLUMN "certificaat_type" text;

@@ -1,0 +1,21 @@
+version: '3.9'
+volumes:
+  postgis-data:
+
+services:
+
+  db:
+    image: postgis/postgis:16-3.4-alpine
+    volumes:
+      - /Users/didierhartong/Projects/examenservices-fetcher/postgis-data:/var/lib/postgresql
+    environment:
+      # If you need to create multiple database you can add coma separated databases eg gis,data
+      - POSTGRES_DB=groene_erkenningen
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      # Add extensions you need to be enabled by default in the DB. Default are the five specified below
+      - POSTGRES_MULTIPLE_EXTENSIONS=postgis
+      - RUN_AS_ROOT=true
+    ports:
+      - "25432:5432"
+    restart: on-failure

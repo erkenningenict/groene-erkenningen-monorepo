@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "label": "Gewasbescherming",
+    "organisationCode": "8F0BCDD8-2F59-4EEE-6A24-A2A1570ABA41",
+    "enabled": true
+  },
+  {
+    "id": 2,
+    "label": "Groenkeur",
+    "organisationCode": "F5A3709C-78EF-479F-D2B9-481F78991995",
+    "enabled": true
+  }
+]

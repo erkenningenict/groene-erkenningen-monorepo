@@ -1,0 +1,50 @@
+{
+  "name": "@repo/api",
+  "version": "1.0.17",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test": "bun test --watch",
+    "dev1": "bun run --watch index.tsx",
+    "dev": "bun run --watch src/services/processor.ts",
+    "db:generate": "bunx drizzle-kit generate",
+    "db:migrate": "DB_MIGRATING=true bunx drizzle-kit migrate",
+    "db:seed": "DB_SEEDING=true bun run src/db/seed.ts",
+    "start": "bun run start:migrate && bun run start:app",
+    "start:app": "bun run index.tsx",
+    "start:migrate": "bun run db:migrate",
+    "typecheck": "tsc",
+    "get-version": "echo $(bun run ./scripts/getVersion.ts)",
+    "release:patch": "npm version patch && bun run docker-build-push",
+    "release:minor": "npm version minor && bun run docker-build-push",
+    "release:major": "npm version major && bun run docker-build-push",
+    "docker:build": "bun run get-version | xargs -I {} docker buildx build --platform linux/amd64 -t registry.erkenningen.nl/examenservices-fetcher:{} --progress=plain .",
+    "docker:push": "bun run get-version | xargs -I {} docker push registry.erkenningen.nl/examenservices-fetcher:{}",
+    "docker-build-push": "bun run docker:build && bun run docker:push && bun run git:push",
+    "git:push": "git push && git push --tags origin"
+  },
+  "dependencies": {
+    "@elysiajs/cron": "1.1.1",
+    "@elysiajs/html": "^1.1.1",
+    "@paralleldrive/cuid2": "2.2.2",
+    "date-fns": "4.1.0",
+    "drizzle-kit": "^0.26.2",
+    "drizzle-orm": "0.35.2",
+    "elysia": "1.1.22",
+    "postgres": "3.4.4",
+    "winston": "3.15.0",
+    "winston-daily-rotate-file": "5.0.0",
+    "xml2js": "0.6.2",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/xml2js": "0.4.14",
+    "bun-types": "latest",
+    "prettier": "3.3.3",
+    "typescript": "^5.6.3"
+  },
+  "module": "src/index.js"
+}

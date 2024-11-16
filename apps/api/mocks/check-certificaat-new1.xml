@@ -1,0 +1,36 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <APICheckCertificaatResponse xmlns="http://www.triggre.com/2018/soap">
+      <AantalResultaten>1</AantalResultaten>
+      <Achternaam>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Jansen of Lorkeers</string>
+      </Achternaam>
+      <Datum_x0020_behaald>
+        <dateTime xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          2008-12-09T00:00:00</dateTime>
+      </Datum_x0020_behaald>
+      <Geboortejaar>
+        <decimal xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">1986</decimal>
+      </Geboortejaar>
+      <OrganisatieCode>c76c997f-78ff-40d7-be42-c43968f84a75</OrganisatieCode>
+      <Startdatum>
+        <dateTime xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          2008-12-09T00:00:00</dateTime>
+      </Startdatum>
+      <Status>OK</Status>
+      <Tussenvoegsel>
+        <string xsi:nil="true" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      </Tussenvoegsel>
+      <TypeCertificaat>Bestrijdingstechnicus</TypeCertificaat>
+      <Verloopdatum>
+        <dateTime xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+          2028-12-09T00:00:00</dateTime>
+      </Verloopdatum>
+      <Voorletters>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">R.H.R.</string>
+      </Voorletters>
+      <ZoekAchternaam>Jansen of Lorkeers</ZoekAchternaam>
+    </APICheckCertificaatResponse>
+  </s:Body>
+</s:Envelope>

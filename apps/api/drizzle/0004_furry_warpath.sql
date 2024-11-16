@@ -1,0 +1,2 @@
+DROP INDEX IF EXISTS "queryIndexes";--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "queryIndexes" ON "examenMomenten" USING btree ("label","type_bijeenkomst","examen_datum","locatie_naam","geo_location","certificaat_type");

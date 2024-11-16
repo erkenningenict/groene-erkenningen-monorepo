@@ -1,0 +1,34 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body
+	><APILosExamenmomentResponse
+			xmlns="http://www.triggre.com/2018/soap"
+		><OrganisatorHuisnummer>25</OrganisatorHuisnummer><OrganisatorStraat
+			>Energieweg</OrganisatorStraat><ExamentypeCode
+			>NWTHBOV09E</ExamentypeCode><Examennummer
+			>549830</Examennummer><LocatiePlaats
+			>ZWOLLE</LocatiePlaats><OrganisatorPlaats
+			>NIJMEGEN</OrganisatorPlaats><TotaalAantalPlekken
+			>16</TotaalAantalPlekken><OpenPlekken
+			>16</OpenPlekken><ExamentypeOmschrijving
+			>09 Situatiebevraging en zelfreflectie</ExamentypeOmschrijving><Status
+			>OK</Status><APIPrijs
+				i:nil="true"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			/><Examendatum
+				xmlns:a="http://schemas.datacontract.org/2004/07/System"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			><a:DateTime>2023-05-03T07:00:00Z</a:DateTime><a:OffsetMinutes
+				>0</a:OffsetMinutes></Examendatum><LocatiePostcode
+			>8022 AW</LocatiePostcode><LocatieNaam
+			>CVNN Verkeersopleidingen</LocatieNaam><OrganisatorToevoeging /><Branche
+			>Theoretische Bijscholing</Branche><APIURL
+				i:nil="true"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			/><EinddatumExamen
+				xmlns:a="http://schemas.datacontract.org/2004/07/System"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			><a:DateTime>2023-05-03T16:00:00Z</a:DateTime><a:OffsetMinutes
+				>0</a:OffsetMinutes></EinddatumExamen><OrganisatorTelefoon
+			>0243738833</OrganisatorTelefoon><Examentype
+			>09 Situatiebevraging en zelfreflectie</Examentype><OrganisatorEmail
+			>marc@ACC_verkeersschoolwesseldijk.nl</OrganisatorEmail><OrganisatorBedrijfsnaam
+			>A.V.R.-Wesseldijk</OrganisatorBedrijfsnaam></APILosExamenmomentResponse></s:Body></s:Envelope>

@@ -1,0 +1,39 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Body>
+    <APICheckCertificaatResponse xmlns="http://www.triggre.com/2018/soap">
+      <Voorletters xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+        xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+        <a:string>D.</a:string>
+      </Voorletters>
+      <TypeCertificaat>Kleurkeur basis</TypeCertificaat>
+      <Geboortejaar xmlns:a="http://schemas.datacontract.org/2004/07/System"
+        xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+        <a:decimal i:nil="true" />
+      </Geboortejaar>
+      <OrganisatieCode>c76c997f-78ff-40d7-be42-c43968f84a75</OrganisatieCode>
+      <Tussenvoegsel xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+        xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+        <a:string i:nil="true" />
+      </Tussenvoegsel>
+      <AantalResultaten>6</AantalResultaten>
+      <ZoekAchternaam>Mol</ZoekAchternaam>
+      <Achternaam xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+        xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+        <a:string>Mol</a:string>
+      </Achternaam>
+      <Datum_x0020_behaald xmlns:a="http://schemas.datacontract.org/2004/07/System"
+        xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+        <a:dateTime>2020-09-17T00:00:00</a:dateTime>
+      </Datum_x0020_behaald>
+      <Startdatum xmlns:a="http://schemas.datacontract.org/2004/07/System"
+        xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+        <a:dateTime>2020-09-17T00:00:00</a:dateTime>
+      </Startdatum>
+      <Status>OK</Status>
+      <Verloopdatum xmlns:a="http://schemas.datacontract.org/2004/07/System"
+        xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+        <a:dateTime>2025-09-17T00:00:00</a:dateTime>
+      </Verloopdatum>
+    </APICheckCertificaatResponse>
+  </s:Body>
+</s:Envelope>

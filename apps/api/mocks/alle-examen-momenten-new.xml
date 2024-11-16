@@ -1,0 +1,55 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <APIAlleExamenmomentenResponse xmlns="http://www.triggre.com/2018/soap">
+      <APIPrijs>
+        <decimal xsi:nil="true" xmlns="http://schemas.datacontract.org/2004/07/System" />
+        <decimal xsi:nil="true" xmlns="http://schemas.datacontract.org/2004/07/System" />
+      </APIPrijs>
+      <APIURL>
+        <string xsi:nil="true" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+        <string xsi:nil="true" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      </APIURL>
+      <AantalResultaten>2</AantalResultaten>
+      <Branche>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Kleurkeur</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Kleurkeur</string>
+      </Branche>
+      <Examendatum>
+        <DateTimeOffset xmlns="http://schemas.datacontract.org/2004/07/System">
+          <DateTime>2024-07-16T18:00:00Z</DateTime>
+          <OffsetMinutes>0</OffsetMinutes>
+        </DateTimeOffset>
+        <DateTimeOffset xmlns="http://schemas.datacontract.org/2004/07/System">
+          <DateTime>2024-07-16T17:00:00Z</DateTime>
+          <OffsetMinutes>0</OffsetMinutes>
+        </DateTimeOffset>
+      </Examendatum>
+      <Examennummer>
+        <decimal xmlns="http://schemas.datacontract.org/2004/07/System">694426</decimal>
+        <decimal xmlns="http://schemas.datacontract.org/2004/07/System">694426</decimal>
+      </Examennummer>
+      <Examentype_x0020_Omschrijving>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Examen Kleurkeur Basis (herkansing)</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Examen Kleurkeur Gevorderde (herkansing)</string>
+      </Examentype_x0020_Omschrijving>
+      <Examentypenummer>
+        <decimal xmlns="http://schemas.datacontract.org/2004/07/System">10818</decimal>
+        <decimal xmlns="http://schemas.datacontract.org/2004/07/System">10819</decimal>
+      </Examentypenummer>
+      <Locatie_x0020_Naam>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Examencentrum Nieuwegein</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Examencentrum Nieuwegein</string>
+      </Locatie_x0020_Naam>
+      <Locatie_x0020_Plaats>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">NIEUWEGEIN</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">NIEUWEGEIN</string>
+      </Locatie_x0020_Plaats>
+      <Status>OK</Status>
+      <Type_x0020_examen>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Kleurkeur Basis (herkansing)</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Kleurkeur Gevorderde (herkansing)</string>
+      </Type_x0020_examen>
+    </APIAlleExamenmomentenResponse>
+  </s:Body>
+</s:Envelope>

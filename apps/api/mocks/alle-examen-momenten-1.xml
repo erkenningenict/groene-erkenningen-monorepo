@@ -1,0 +1,34 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body
+	><APIAlleExamenmomentenResponse
+			xmlns="http://www.triggre.com/2018/soap"
+		><Examennummer
+				xmlns:a="http://schemas.datacontract.org/2004/07/System"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			><a:decimal
+				>549794</a:decimal></Examennummer>
+				<Examentypenummer xmlns:a="http://schemas.datacontract.org/2004/07/System" xmlns:i="http://www.w3.org/2001/XMLSchema-instance"><a:decimal>1039</a:decimal></Examentypenummer><Examentype_x0020_Omschrijving
+				xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			><a:string
+				>Keurmeester Periodieke Keuring Zware Voertuigen</a:string></Examentype_x0020_Omschrijving><Examendatum
+				xmlns:a="http://schemas.datacontract.org/2004/07/System"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			><a:DateTimeOffset><a:DateTime
+					>2023-07-04T07:00:00Z</a:DateTime><a:OffsetMinutes
+					>0</a:OffsetMinutes></a:DateTimeOffset></Examendatum><AantalResultaten
+			>1</AantalResultaten><Type_x0020_examen
+				xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			><a:string>APK Zware voertuigen</a:string></Type_x0020_examen><Status
+			>OK</Status><Branche
+				xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			><a:string>Bedrijfsauto</a:string></Branche><Locatie_x0020_Naam
+				xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			><a:string
+				>Examencentrum Nieuwegein</a:string></Locatie_x0020_Naam><Locatie_x0020_Plaats
+				xmlns:a="http://schemas.microsoft.com/2003/10/Serialization/Arrays"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			><a:string
+				>NIEUWEGEIN</a:string></Locatie_x0020_Plaats></APIAlleExamenmomentenResponse></s:Body></s:Envelope>

@@ -1,0 +1,365 @@
+{
+  "id": "e638efed-fe91-4c1f-b241-46adbd2203e5",
+  "prevId": "2b100bba-cc10-4d3c-a34e-a09285215fb2",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.config": {
+      "name": "config",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "organisation_code": {
+          "name": "organisation_code",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "enabled": {
+          "name": "enabled",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.examenMomenten": {
+      "name": "examenMomenten",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type_bijeenkomst": {
+          "name": "type_bijeenkomst",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "examen_nummer": {
+          "name": "examen_nummer",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "examen_type_nummer": {
+          "name": "examen_type_nummer",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "examen_type_omschrijving": {
+          "name": "examen_type_omschrijving",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "examen_datum": {
+          "name": "examen_datum",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type_examen": {
+          "name": "type_examen",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type_locatie": {
+          "name": "type_locatie",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "locatie_naam": {
+          "name": "locatie_naam",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locatie_postcode": {
+          "name": "locatie_postcode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "locatie_plaats": {
+          "name": "locatie_plaats",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "prijs": {
+          "name": "prijs",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "organisator_bedrijfsnaam": {
+          "name": "organisator_bedrijfsnaam",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "geo_location": {
+          "name": "geo_location",
+          "type": "geometry(point)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "label_index": {
+          "name": "label_index",
+          "columns": [
+            {
+              "expression": "label",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "spatial_index_examen_momenten": {
+          "name": "spatial_index_examen_momenten",
+          "columns": [
+            {
+              "expression": "geo_location",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gist",
+          "with": {}
+        },
+        "queryIndexes": {
+          "name": "queryIndexes",
+          "columns": [
+            {
+              "expression": "label",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "examen_datum",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "locatie_naam",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "geo_location",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.postcodes": {
+      "name": "postcodes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "postcode": {
+          "name": "postcode",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "woonplaats": {
+          "name": "woonplaats",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "alternatieve_schrijfwijzen": {
+          "name": "alternatieve_schrijfwijzen",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gemeente": {
+          "name": "gemeente",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "provincie": {
+          "name": "provincie",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "netnummer": {
+          "name": "netnummer",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "latitude": {
+          "name": "latitude",
+          "type": "numeric(10, 6)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "longitude": {
+          "name": "longitude",
+          "type": "numeric(10, 6)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "soort": {
+          "name": "soort",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "geo_location": {
+          "name": "geo_location",
+          "type": "geometry(point)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "postcode_index": {
+          "name": "postcode_index",
+          "columns": [
+            {
+              "expression": "postcode",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "woonplaats_index": {
+          "name": "woonplaats_index",
+          "columns": [
+            {
+              "expression": "woonplaats",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "spatial_index": {
+          "name": "spatial_index",
+          "columns": [
+            {
+              "expression": "geo_location",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gist",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

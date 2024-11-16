@@ -1,5 +1,5 @@
 {
-  "name": "calendar",
+  "name": "groene-erkenningen",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -15,7 +15,8 @@
     "@repo/ui": "workspace:*",
     "@repo/api": "workspace:*",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

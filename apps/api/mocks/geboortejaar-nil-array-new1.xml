@@ -1,0 +1,75 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+  <s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <APICheckCertificaatResponse xmlns="http://www.triggre.com/2018/soap">
+      <AantalResultaten>7</AantalResultaten>
+      <Achternaam>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Molendijk</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Molenaar</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Molendijk</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Molenaar</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Mol</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Molen</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">Molenaar</string>
+      </Achternaam>
+      <Datum_x0020_behaald>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2021-06-24T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2022-06-21T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2024-03-08T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2020-01-21T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2020-09-17T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2023-06-28T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2023-03-08T00:00:00</dateTime>
+      </Datum_x0020_behaald>
+      <Geboortejaar>
+        <decimal xmlns="http://schemas.datacontract.org/2004/07/System">1980</decimal>
+        <decimal xmlns="http://schemas.datacontract.org/2004/07/System">1998</decimal>
+        <decimal xmlns="http://schemas.datacontract.org/2004/07/System">1977</decimal>
+        <decimal xsi:nil="true" xmlns="http://schemas.datacontract.org/2004/07/System" />
+        <decimal xsi:nil="true" xmlns="http://schemas.datacontract.org/2004/07/System" />
+        <decimal xmlns="http://schemas.datacontract.org/2004/07/System">1991</decimal>
+        <decimal xmlns="http://schemas.datacontract.org/2004/07/System">1995</decimal>
+      </Geboortejaar>
+      <OrganisatieCode>c76c997f-78ff-40d7-be42-c43968f84a75</OrganisatieCode>
+      <Startdatum>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2021-06-24T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2022-06-21T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2024-03-08T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2020-01-21T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2020-09-17T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2023-06-28T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2023-03-08T00:00:00</dateTime>
+      </Startdatum>
+      <Status>OK</Status>
+      <Tussenvoegsel>
+        <string xsi:nil="true" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+        <string xsi:nil="true" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+        <string xsi:nil="true" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+        <string xsi:nil="true" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+        <string xsi:nil="true" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">van der</string>
+        <string xsi:nil="true" xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      </Tussenvoegsel>
+      <TypeCertificaat>Kleurkeur basis</TypeCertificaat>
+      <Verloopdatum>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2026-06-24T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2027-06-21T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2029-03-08T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2025-01-21T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2025-09-17T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2028-06-28T00:00:00</dateTime>
+        <dateTime xmlns="http://schemas.datacontract.org/2004/07/System">2028-03-08T00:00:00</dateTime>
+      </Verloopdatum>
+      <Voorletters>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">J.</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">M.</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">P.W.</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">J.</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">D.</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">M.</string>
+        <string xmlns="http://schemas.microsoft.com/2003/10/Serialization/Arrays">M.</string>
+      </Voorletters>
+      <ZoekAchternaam>Mol</ZoekAchternaam>
+    </APICheckCertificaatResponse>
+  </s:Body>
+</s:Envelope>

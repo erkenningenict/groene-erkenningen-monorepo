@@ -1,0 +1,78 @@
+<!-- <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+	<s:Body>
+		<APILosExamenmomentResponse
+			xmlns="http://www.triggre.com/2018/soap"
+		>
+			<OrganisatorHuisnummer>25</OrganisatorHuisnummer>
+			<OrganisatorStraat>Energieweg</OrganisatorStraat>
+			<ExamentypeCode>NWTHBOV09E</ExamentypeCode>
+			<Examennummer>549830</Examennummer>
+			<LocatiePlaats>ZWOLLE</LocatiePlaats>
+			<OrganisatorPlaats>NIJMEGEN</OrganisatorPlaats>
+			<TotaalAantalPlekken>16</TotaalAantalPlekken>
+			<OpenPlekken>16</OpenPlekken>
+			<ExamentypeOmschrijving>09 Situatiebevraging en zelfreflectie</ExamentypeOmschrijving>
+			<Status>OK</Status>
+			<Examendatum
+				xmlns:a="http://schemas.datacontract.org/2004/07/System"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			>
+				<a:DateTime>2023-05-03T07:00:00Z</a:DateTime>
+				<a:OffsetMinutes>0</a:OffsetMinutes>
+			</Examendatum>
+			<LocatiePostcode>8022 AW</LocatiePostcode>
+			<LocatieNaam>CVNN Verkeersopleidingen</LocatieNaam>
+			<OrganisatorToevoeging
+				i:nil="true"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			/>
+			<Branche>Theoretische Bijscholing1</Branche>
+			<EinddatumExamen
+				xmlns:a="http://schemas.datacontract.org/2004/07/System"
+				xmlns:i="http://www.w3.org/2001/XMLSchema-instance"
+			>
+				<a:DateTime>2023-05-03T16:00:00Z</a:DateTime>
+				<a:OffsetMinutes>0</a:OffsetMinutes>
+			</EinddatumExamen>
+			<OrganisatorTelefoon>0243738833</OrganisatorTelefoon>
+			<Examentype>09 Situatiebevraging en zelfreflectie</Examentype>
+			<OrganisatorEmail>marc@ACC_verkeersschoolwesseldijk.nl</OrganisatorEmail>
+			<OrganisatorBedrijfsnaam>A.V.R.-Wesseldijk</OrganisatorBedrijfsnaam>
+		</APILosExamenmomentResponse>
+	</s:Body>
+</s:Envelope> -->
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+	<s:Body xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+		<APILosExamenmomentResponse xmlns="http://www.triggre.com/2018/soap">
+			<APIPrijs xsi:nil="true" />
+			<APIURL xsi:nil="true" />
+			<Branche>RPMV</Branche>
+			<EinddatumExamen>
+				<DateTime xmlns="http://schemas.datacontract.org/2004/07/System">2024-06-28T07:30:00Z</DateTime>
+				<OffsetMinutes xmlns="http://schemas.datacontract.org/2004/07/System">0</OffsetMinutes>
+			</EinddatumExamen>
+			<Examendatum>
+				<DateTime xmlns="http://schemas.datacontract.org/2004/07/System">2024-06-28T06:00:00Z</DateTime>
+				<OffsetMinutes xmlns="http://schemas.datacontract.org/2004/07/System">0</OffsetMinutes>
+			</Examendatum>
+			<Examennummer>691092</Examennummer>
+			<Examentype>Bestrijdingstechnicus Praktijk</Examentype>
+			<ExamentypeCode>RPMV_BT_PE</ExamentypeCode>
+			<ExamentypeOmschrijving>Bestrijdingstechnicus Praktijk</ExamentypeOmschrijving>
+			<LocatieNaam>Lestrix LEUSDEN</LocatieNaam>
+			<LocatiePlaats>LEUSDEN</LocatiePlaats>
+			<LocatiePostcode>3831 KE</LocatiePostcode>
+			<OpenPlekken>0</OpenPlekken>
+			<OrganisatorBedrijfsnaam xsi:nil="true" />
+			<OrganisatorEmail xsi:nil="true" />
+			<OrganisatorHuisnummer xsi:nil="true" />
+			<OrganisatorPlaats xsi:nil="true" />
+			<OrganisatorStraat xsi:nil="true" />
+			<OrganisatorTelefoon xsi:nil="true" />
+			<OrganisatorToevoeging xsi:nil="true" />
+			<Status>OK</Status>
+			<TotaalAantalPlekken>1</TotaalAantalPlekken>
+		</APILosExamenmomentResponse>
+	</s:Body>
+</s:Envelope>
