@@ -1,6 +1,6 @@
 export const getCertificates = async (label: string) => {
   const response = await fetch(
-    `http://localhost:3000/publicRegister/certificates/${label}`,
+    `${import.meta.env.VITE_APP_API_URL}/publicRegister/certificates/${label}`,
     {
       method: "GET",
       headers: {
