@@ -1,6 +1,6 @@
 {
   "name": "@repo/api",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "exports": {
     ".": "./src/index.ts"
   },
