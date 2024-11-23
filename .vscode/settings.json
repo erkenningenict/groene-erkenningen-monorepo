@@ -1,5 +1,15 @@
 {
   "prettier.documentSelectors": [
     "**/*.{js,jsx,ts,tsx,vue,html,css,scss,less,json,md,mdx,graphql,yaml,yml,php}"
-  ]
+  ],
+  "cSpell.words": [
+    "elysia",
+    "elysiajs",
+    "nums",
+    "organisation",
+    "rpmv",
+    "valibot"
+  ],
+  "cSpell.ignoreWords": ["PDF", "transform"],
+  "cSpell.ignorePaths": ["package-lock.json", "node_modules", ".env*"]
 }

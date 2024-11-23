@@ -6,8 +6,8 @@
   },
   "scripts": {
     "test": "bun test --watch",
-    "dev1": "bun run --watch index.tsx",
-    "dev": "bun run --watch src/services/processor.ts",
+    "dev": "bun run --watch index.tsx",
+    "dev1": "bun run --watch src/services/processor.ts",
     "db:generate": "bunx drizzle-kit generate",
     "db:migrate": "DB_MIGRATING=true bunx drizzle-kit migrate",
     "db:seed": "DB_SEEDING=true bun run src/db/seed.ts",
@@ -33,10 +33,10 @@
     "drizzle-orm": "0.35.2",
     "elysia": "1.1.22",
     "postgres": "3.4.4",
+    "valibot": "^1.0.0-beta.8",
     "winston": "3.15.0",
     "winston-daily-rotate-file": "5.0.0",
-    "xml2js": "0.6.2",
-    "zod": "3.23.8"
+    "xml2js": "0.6.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

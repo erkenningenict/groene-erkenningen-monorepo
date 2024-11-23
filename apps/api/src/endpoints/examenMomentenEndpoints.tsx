@@ -4,6 +4,7 @@ import { html, Html } from '@elysiajs/html'
 import env from '../../env'
 import logger from '../utils/logger'
 import { examenMomentenProcessor } from '../services/examenMomentenProcessor'
+import { format } from 'date-fns'
 
 export const examenMomentenEndpoints = new Elysia({ prefix: 'examenMomenten' })
 
@@ -39,19 +40,26 @@ export const examenMomentenEndpoints = new Elysia({ prefix: 'examenMomenten' })
             <h1>Examenmomenten fetcher acties</h1>
             <ul>
               <li>
-                <a href="./pause">Pause cron job</a>
+                <a href="examenMomenten/pause">Pause cron job</a>
               </li>
               <li>
-                <a href="./resume">Resume cron job</a>
+                <a href="examenMomenten/resume">Resume cron job</a>
               </li>
               <li>
-                <a href="./nextRun">Next run</a>
+                <a href="examenMomenten/nextRun">Next run</a>
               </li>
               <li>
-                <a href="./runNow">Run now</a>
+                <a href="examenMomenten/runNow">Run now</a>
               </li>
               <li>Schedule: {env.CRON_EXAMENMOMENTEN_SCHEDULE}.</li>
-              <li>Cronjob is running status: {examenMomenten.isRunning()}</li>
+              <li>
+                Cronjob is running status:{' '}
+                {examenMomenten.isRunning() ? 'yes' : 'no'}.
+              </li>
+              <li>
+                Processing enabled?{' '}
+                {env.CRON_EXAMENMOMENTEN_ENABLED ? 'yes' : 'no'}.
+              </li>
             </ul>
           </body>
         </html>
@@ -78,7 +86,14 @@ export const examenMomentenEndpoints = new Elysia({ prefix: 'examenMomenten' })
             <ul>
               <li>Processing enabled: {env.CRON_EXAMENMOMENTEN_ENABLED}.</li>
               <li>Schedule: {env.CRON_EXAMENMOMENTEN_SCHEDULE}.</li>
-              <li>Cronjob is running status: {examenMomenten.isRunning()}</li>
+              <li>
+                Cronjob is running status:{' '}
+                {examenMomenten.isRunning() ? 'yes' : 'no'}.
+              </li>
+              <li>
+                Processing enabled?{' '}
+                {env.CRON_EXAMENMOMENTEN_ENABLED ? 'yes' : 'no'}.
+              </li>
             </ul>
           </body>
         </html>
@@ -105,7 +120,14 @@ export const examenMomentenEndpoints = new Elysia({ prefix: 'examenMomenten' })
               <li>Resume examen momenten cron job.</li>
               <li>Processing enabled: {env.CRON_EXAMENMOMENTEN_ENABLED}.</li>
               <li>Schedule: {env.CRON_EXAMENMOMENTEN_SCHEDULE}.</li>
-              <li>Cronjob is running status: {examenMomenten.isRunning()}</li>
+              <li>
+                Cronjob is running status:{' '}
+                {examenMomenten.isRunning() ? 'yes' : 'no'}.
+              </li>
+              <li>
+                Processing enabled?{' '}
+                {env.CRON_EXAMENMOMENTEN_ENABLED ? 'yes' : 'no'}.
+              </li>
             </ul>
           </body>
         </html>
@@ -127,10 +149,26 @@ export const examenMomentenEndpoints = new Elysia({ prefix: 'examenMomenten' })
           <body>
             <h1>Examenservices fetcher next run</h1>
             <ul>
-              <li>Next run at: {examenMomenten.nextRun()?.toISOString()}.</li>
+              <li>
+                Next run at:{' '}
+                {format(
+                  new Date(
+                    (examenMomenten.nextRun() ?? new Date())?.toISOString(),
+                  ),
+                  'dd-MM-yyyy hh:mm:ss',
+                )}
+                .
+              </li>
               <li>Processing enabled: {env.CRON_EXAMENMOMENTEN_ENABLED}.</li>
               <li>Schedule: {env.CRON_EXAMENMOMENTEN_SCHEDULE}.</li>
-              <li>Cronjob is running status: {examenMomenten.isRunning()}</li>
+              <li>
+                Cronjob is running status:{' '}
+                {examenMomenten.isRunning() ? 'yes' : 'no'}.
+              </li>
+              <li>
+                Processing enabled?{' '}
+                {env.CRON_EXAMENMOMENTEN_ENABLED ? 'yes' : 'no'}.
+              </li>
             </ul>
           </body>
         </html>

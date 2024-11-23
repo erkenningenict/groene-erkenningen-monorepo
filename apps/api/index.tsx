@@ -9,7 +9,16 @@ import { publicRegisterEndpoints } from './src/endpoints/publicRegisterEndpoints
 import cors from '@elysiajs/cors'
 
 const app = new Elysia()
-  .use(cors())
+  .use(
+    cors({
+      origin: ({ headers }) => {
+        const origin = headers.get('origin')
+        return env.ALLOWED_ORIGINS.includes(origin ?? '')
+      },
+      methods: ['GET', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+    }),
+  )
   .use(
     apiKeyAuth({
       enabled: true,

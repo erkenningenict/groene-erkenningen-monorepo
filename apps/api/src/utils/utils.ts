@@ -224,10 +224,6 @@ export function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-export async function getMockFile(fileName: string): Promise<string> {
-  return await Bun.file(fileName).text()
-}
-
 export const euroFormatter = Intl.NumberFormat('nl-NL', {
   style: 'currency',
   currency: 'EUR',
@@ -240,4 +236,17 @@ export async function logAndThrowError(message: string, error: any) {
   })
   logger.error(message)
   throw new Error(message)
+}
+
+export const labelMap = {
+  aockeurmerk: 'AOC Keurmerk',
+  groenkeur: 'Groenkeur',
+} as Record<string, string>
+
+export const getLabel = (label: string) => {
+  const res = labelMap[label]
+  if (res) {
+    return res
+  }
+  throw new Error(`Label ${label} not found in labelMap`)
 }

@@ -2,13 +2,11 @@ import { parseString, processors } from 'xml2js'
 import { toDutchDateTime } from '../utils/dateTimeUtils'
 import {
   getExamenMomentenDateArrayResult,
-  getMockFile,
   getNewNumberArrayResult,
   getNewStringArrayResult,
   getSoapBody,
   logAndThrowError,
 } from '../utils/utils'
-import type { LabelTypes } from './labelConfiguration'
 import logger from '../utils/logger'
 import type { SelectConfig } from '../db/schema'
 import env from '../../env'
@@ -31,14 +29,14 @@ export async function alleExamenMomenten(
   logger.debug(`Soap request body alle examen momenten:\n${soapRequestBody}`)
 
   if (process.env.E2E === 'true') {
-    const xml = await getMockFile('./mocks/alle-examen-momenten-new.xml')
-    return alleExamenMomentenToJs(
-      xml,
-      config.label,
-      begindatum,
-      einddatum,
-      typeBijeenkomst,
-    )
+    // const xml = await getMockFile('./mocks/alle-examen-momenten-new.xml')
+    // return alleExamenMomentenToJs(
+    //   xml,
+    //   config.label,
+    //   begindatum,
+    //   einddatum,
+    //   typeBijeenkomst,
+    // )
   }
 
   const body = await getSoapBody(
