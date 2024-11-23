@@ -19,8 +19,8 @@ json.version = bump([major, minor, patch], semverPart)
 await Bun.write('./package.json', JSON.stringify(json, null, 2))
 
 // Commit, tag and push
-// await $`git add package.json`;
-// await $`git commit -m v${json.version}`;
+await $`git add package.json`
+await $`git commit -m v${json.version}`
 // await $`git tag v${json.version}`;
 // await $`git push`;
 // await $`git push origin v${json.version}`;
