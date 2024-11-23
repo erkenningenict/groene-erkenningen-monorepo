@@ -15,6 +15,7 @@
     "start:app": "bun run index.tsx",
     "start:migrate": "bun run db:migrate",
     "typecheck": "tsc",
+    "get-version": "bun ./scripts/get-version.ts",
     "bump": "bun ./scripts/bump.ts",
     "patch": "bun run bump -- minor",
     "release:patch": "bun run bump -- patch && bun run docker-build-push",
