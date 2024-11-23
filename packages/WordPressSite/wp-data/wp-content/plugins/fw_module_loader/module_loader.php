@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Module Loader
-Description: Loads a hosted React site in a shortcode. Use the shortcode [module_loader url="https://example.com/module"]
+Description: Loads a hosted React site in a shortcode. Use the shortcode [module_loader url="https://example.com/module" theme="themeName"]
 Version: 1.0
 Author: Focus Wider (Didier Hartong)
 */
