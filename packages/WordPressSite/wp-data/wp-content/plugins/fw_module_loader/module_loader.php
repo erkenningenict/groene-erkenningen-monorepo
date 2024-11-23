@@ -9,10 +9,12 @@ Author: Focus Wider (Didier Hartong)
 class ModuleLoaderHelper
 {
     private $url;
+    private $theme;
     private $skeletonFormat;
-    public function __construct($url, $skeletonFormat = null)
+    public function __construct($url, $theme = null, $skeletonFormat = null)
     {
         $this->url = $url;
+        $this->theme = $theme;
         $this->skeletonFormat = $skeletonFormat;
     }
     private function generateHash($str)
@@ -63,6 +65,9 @@ class ModuleLoaderHelper
     {
         if (!$this->url) {
             return "<div>URL " . $this->url . "not configured</div>";
+        }
+        if (!$this->theme) {
+            return "<div>Theme " . $this->theme . "not configured</div>";
         }
 
         try {
@@ -121,7 +126,7 @@ class ModuleLoaderHelper
                     );
                 }
             } // Add root element
-            $output .= "<div id=\"$rootElemId\">Laden...</div>";
+            $output .= "<div data-theme=\"$this->theme\" id=\"$rootElemId\">Laden...</div>";
             return $output;
         } catch (Exception $e) {
             return "<div>Failed to retrieve contents</div>";
@@ -135,6 +140,7 @@ function module_loader_shortcode($atts)
     $data = shortcode_atts(
         [
             "url" => "default_url",
+            "theme" => "default_theme",
         ],
         $atts,
         "module_loader"
@@ -143,8 +149,11 @@ function module_loader_shortcode($atts)
     if ($data["url"] === "default_url") {
         return "<div>Error: no url provided. Check that the attribute is not a link (remove the link). It should be text.</div>";
     }
+    if ($data["theme"] === "default_theme") {
+        return "<div>Error: no theme provided. Check that the attribute exists.</div>";
+    }
 
-    $loader = new ModuleLoaderHelper($data["url"]);
+    $loader = new ModuleLoaderHelper($data["url"], $data["theme"]);
     return $loader->render();
 }
 

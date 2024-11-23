@@ -3,10 +3,12 @@
     "**/*.{js,jsx,ts,tsx,vue,html,css,scss,less,json,md,mdx,graphql,yaml,yml,php}"
   ],
   "cSpell.words": [
+    "bunx",
     "elysia",
     "elysiajs",
     "nums",
     "organisation",
+    "postgres",
     "rpmv",
     "valibot"
   ],

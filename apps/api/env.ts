@@ -57,9 +57,13 @@ const EnvSchema = v.object({
 export type EnvSchema = v.InferOutput<typeof EnvSchema>
 
 try {
-  v.parse(EnvSchema, process.env)
+  const envParser = v.safeParser(EnvSchema)
+  const result = envParser(process.env)
+  if (!result.success) {
+    console.log('Error parsing env variables', result.issues)
+  }
 } catch (error) {
-  console.log('#DH# Error parsing env variables', error)
+  console.log('error parsing env variables', error)
   // if (error instanceof ZodError) {
   //   let message = 'Missing required values in .env:\n'
   //   error.issues.forEach(issue => {

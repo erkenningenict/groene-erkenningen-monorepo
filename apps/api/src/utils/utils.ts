@@ -241,6 +241,10 @@ export async function logAndThrowError(message: string, error: any) {
 export const labelMap = {
   aockeurmerk: 'AOC Keurmerk',
   groenkeur: 'Groenkeur',
+  rpmv: 'RPMV',
+  kleurkeur: 'Kleurkeur',
+  nkc: 'Nederlands Kettingzaag Certificaat',
+  gewasbescherming: 'Gewasbescherming',
 } as Record<string, string>
 
 export const getLabel = (label: string) => {

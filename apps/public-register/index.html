@@ -1,12 +1,48 @@
 <!doctype html>
-<html lang="nl">
+<html lang="nl" data-theme="groenkeur">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Groene Erkenningen</title>
   </head>
   <body style="padding: 3rem">
-    <div data-theme="groenkeur" id="root"></div>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+      "
+    >
+      <label for="selectLabel">Selecteer een label</label>
+      <select id="selectLabel">
+        <option value="aockeurmerk">AOC Keurmerk</option>
+        <option value="groenkeur">Groenkeur</option>
+        <option value="kleurkeur">Kleurkeur</option>
+        <option value="nkc">Nederlands Kettingzaag Certificaat</option>
+        <option value="gewasbescherming">Gewasbescherming</option>
+        <option value="rpmv">RPMV</option>
+      </select>
+    </div>
+    <div id="root" data-theme="groenkeur"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
+  <script>
+    // used to set the theme
+    const theme = localStorage.getItem("theme");
+    const selectElement = document.getElementById("selectLabel");
+    const htmlElement = document.getElementsByTagName("html")[0];
+    const targetElement = document.getElementById("root");
+    htmlElement.dataset.theme = theme;
+    targetElement.dataset.theme = theme;
+    selectElement.value = theme;
+
+    selectElement.addEventListener("change", () => {
+      targetElement.dataset.theme = selectElement.value;
+      htmlElement.dataset.theme = selectElement.value;
+      localStorage.setItem("theme", selectElement.value);
+      window.location.reload();
+    });
+  </script>
 </html>

@@ -6,5 +6,5 @@ export default function AppWrapper() {
   if (!rootElement) {
     return <div>Root element not found</div>;
   }
-  return <Certificates label={label || "Groenkeur"} />;
+  return <Certificates label={label || "groenkeur"} />;
 }
