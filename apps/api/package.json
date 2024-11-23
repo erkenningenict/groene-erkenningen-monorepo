@@ -41,8 +41,6 @@
     "xml2js": "0.6.2"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
     "@types/xml2js": "0.4.14",
     "bun-types": "latest",
     "prettier": "3.3.3",

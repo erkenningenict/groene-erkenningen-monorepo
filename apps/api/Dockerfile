@@ -5,13 +5,14 @@ WORKDIR /usr/src/app
 # this will cache them and speed up future builds
 FROM base AS install
 RUN mkdir -p /temp/dev
-COPY package.json bun.lockb /temp/dev/
+RUN echo package.json
+COPY package.json /temp/dev/
 WORKDIR /temp/dev
 RUN bun install --frozen-lockfile
 
 # install with --production (exclude devDependencies)
 RUN mkdir -p /temp/prod
-COPY package.json bun.lockb /temp/prod/
+COPY package.json /temp/prod/
 WORKDIR /temp/prod
 RUN bun install --frozen-lockfile --production
 
