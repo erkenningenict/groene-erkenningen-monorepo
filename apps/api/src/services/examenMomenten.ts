@@ -9,7 +9,7 @@ import {
 } from '../utils/utils'
 import logger from '../utils/logger'
 import type { SelectConfig } from '../db/schema'
-import env from '../../env'
+import env from '../utils/env'
 
 export type TypeBijeenkomst = 'Examen' | 'Kennisbijeenkomst'
 

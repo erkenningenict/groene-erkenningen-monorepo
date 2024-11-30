@@ -15,7 +15,7 @@ import {
 } from './examenMomenten'
 import { and, eq, sql } from 'drizzle-orm'
 import logger from '../utils/logger'
-import env from '../../env'
+import env from '../utils/env'
 import { sendSlackErrorMessage } from '../utils/slack'
 
 export async function examenMomentenProcessor() {

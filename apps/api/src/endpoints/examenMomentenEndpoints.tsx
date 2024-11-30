@@ -1,9 +1,9 @@
 import cron from '@elysiajs/cron'
 import Elysia from 'elysia'
 import { html, Html } from '@elysiajs/html'
-import env from '../../env'
+import env from '../utils/env'
 import logger from '../utils/logger'
-import { examenMomentenProcessor } from '../services/examenMomentenProcessor'
+import { examenMomentenProcessor } from '../services/examenMomentenProcessor.js'
 import { format } from 'date-fns'
 
 export const examenMomentenEndpoints = new Elysia({ prefix: 'examenMomenten' })

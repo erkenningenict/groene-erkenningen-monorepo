@@ -1,5 +1,5 @@
 import { Table, getTableName, sql } from 'drizzle-orm'
-import env from '../../env'
+import env from '../utils/env'
 import { db, connection } from './db'
 import * as schema from './schema'
 import configSeed from './seeds/config'

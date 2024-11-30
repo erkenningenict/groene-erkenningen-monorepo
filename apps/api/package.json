@@ -1,6 +1,7 @@
 {
   "name": "@repo/api",
   "version": "1.0.22",
+  "type": "module",
   "exports": {
     ".": "./src/index.ts"
   },
@@ -27,6 +28,11 @@
     "git:push": "git push && git push --tags origin"
   },
   "dependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@repo/constants": "workspace:*",
+    "@repo/schemas": "workspace:*",
     "@elysiajs/cors": "1.1.1",
     "@elysiajs/cron": "1.1.1",
     "@elysiajs/html": "^1.1.1",

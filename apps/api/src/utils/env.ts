@@ -1,6 +1,3 @@
-// import { config } from "dotenv";
-// import { expand } from "dotenv-expand";
-
 import * as v from 'valibot'
 
 const stringBoolean = v.optional(
@@ -30,11 +27,6 @@ const EnvSchema = v.object({
     v.transform(val => val.split(',')),
   ),
 
-  // DB_HOST: v.string(),
-  // DB_USER: v.string(),
-  // DB_PASSWORD: v.string(),
-  // DB_NAME: v.string(),
-  // DB_PORT: v.coerce.number(),
   DB_URL: v.string(),
   DB_MIGRATING: stringBoolean,
   DB_SEEDING: stringBoolean,
@@ -56,25 +48,15 @@ const EnvSchema = v.object({
 
 export type EnvSchema = v.InferOutput<typeof EnvSchema>
 
-try {
+function envParser() {
   const envParser = v.safeParser(EnvSchema)
   const result = envParser(process.env)
   if (!result.success) {
-    console.log('Error parsing env variables', result.issues)
+    const issues = v.flatten(result.issues)
+    console.error('Error parsing env variables', issues)
+    process.exit(1)
   }
-} catch (error) {
-  console.log('error parsing env variables', error)
-  // if (error instanceof ZodError) {
-  //   let message = 'Missing required values in .env:\n'
-  //   error.issues.forEach(issue => {
-  //     message += issue.path[0] + '\n'
-  //   })
-  //   const e = new Error(message)
-  //   e.stack = ''
-  //   throw e
-  // } else {
-  //   console.error(error)
-  // }
+  return v.parse(EnvSchema, process.env)
 }
 
-export default v.parse(EnvSchema, process.env)
+export default envParser()

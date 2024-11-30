@@ -2,17 +2,19 @@ import { Elysia } from 'elysia'
 import { html, Html } from '@elysiajs/html'
 import { examenMomentenEndpoints } from './src/endpoints/examenMomentenEndpoints'
 import logger from './src/utils/logger'
-import env from './env'
+import env from './src/utils/env'
 import { apiKeyAuth } from './src/services/apiKeyAuth'
 import db from './src/db/db'
 import { publicRegisterEndpoints } from './src/endpoints/publicRegisterEndpoints'
 import cors from '@elysiajs/cors'
+import { calendarEndpoints } from './src/endpoints/calendar'
 
 const app = new Elysia()
   .use(
     cors({
       origin: ({ headers }) => {
         const origin = headers.get('origin')
+
         return env.ALLOWED_ORIGINS.includes(origin ?? '')
       },
       methods: ['GET', 'OPTIONS'],
@@ -49,6 +51,7 @@ const app = new Elysia()
     )
   })
   .use(examenMomentenEndpoints)
+  .use(calendarEndpoints)
   .use(publicRegisterEndpoints)
   .listen(3000)
 

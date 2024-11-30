@@ -1,11 +1,9 @@
 import { Elysia } from 'elysia'
-import db from '../db/db'
-import { eq } from 'drizzle-orm'
-import { certificatesPerLabel } from '../db/schema'
 import { checkCertificate } from '../services/check-certificaat.server'
 import type { LabelTypes } from '../services/labelConfiguration'
 import { getLabel } from '../utils/utils'
 import logger from '../utils/logger'
+import { getCertificatesForLabel } from '../services/certificates'
 
 export const publicRegisterEndpoints = new Elysia({
   prefix: 'publicRegister',
@@ -15,10 +13,11 @@ export const publicRegisterEndpoints = new Elysia({
     logger.info(
       `Get certificates for label ${label}, foundLabel: ${foundLabel}`,
     )
-    return await db
-      .select({ certificate: certificatesPerLabel.certificate })
-      .from(certificatesPerLabel)
-      .where(eq(certificatesPerLabel.label, foundLabel))
+    try {
+      return await getCertificatesForLabel(foundLabel)
+    } catch (err) {
+      logger.error('Could not get certificates: ', err)
+    }
   })
   .get(
     '/certificates/:label/:certificate/:search',

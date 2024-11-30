@@ -248,7 +248,7 @@ export const labelMap = {
 } as Record<string, string>
 
 export const getLabel = (label: string) => {
-  const res = labelMap[label]
+  const res = labelMap[label.toLowerCase()]
   if (res) {
     return res
   }

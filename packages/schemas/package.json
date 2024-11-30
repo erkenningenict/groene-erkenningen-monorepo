@@ -1,17 +1,24 @@
 {
-  "name": "@repo/eslint-config",
+  "name": "@repo/schemas",
   "version": "0.0.0",
   "private": true,
-  "files": [
-    "library.js",
-    "react-internal.js"
-  ],
+  "license": "MIT",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.ts",
+  "dependencies": {
+    "@repo/constants": "workspace:*",
+    "date-fns": "^4.1.0"
+  },
   "devDependencies": {
     "eslint-config-turbo": "^2.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-only-warn": "^1.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
-    "typescript": "5.5.4"
+    "typescript": "5.5.4",
+    "vitest": "^2.1.5"
   }
 }

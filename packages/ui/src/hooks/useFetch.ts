@@ -7,6 +7,10 @@ type FetchResult<T> = {
   isError: boolean;
 };
 
+function hasNameProperty(error: unknown): error is { name: string } {
+  return typeof error === "object" && error !== null && "name" in error;
+}
+
 function useFetch<T>(url: string, enabled = true): FetchResult<T> {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(enabled);
@@ -24,18 +28,22 @@ function useFetch<T>(url: string, enabled = true): FetchResult<T> {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const json = await response.json();
-        setData(json);
+        setData(json as T);
         setIsLoading(false);
         setIsError(false);
-      } catch (e) {
-        setIsError(true);
-        setIsLoading(false);
+      } catch (error: unknown) {
+        if (hasNameProperty(error) && error.name === "AbortError") {
+        } else {
+          console.error("Unexpected error", error);
+          setIsError(true);
+          setIsLoading(false);
+        }
       }
     };
 
     fetchData();
     return () => abortController.abort();
-  }, [url]);
+  }, [url, enabled]);
 
   return { data, isLoading, isError };
 }

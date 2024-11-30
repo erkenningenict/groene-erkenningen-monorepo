@@ -10,7 +10,7 @@ import {
 } from '../utils/utils'
 import logger from '../utils/logger'
 import type { LabelTypes } from './labelConfiguration'
-import env from '../../env'
+import env from '../utils/env'
 
 export async function checkCertificate(
   search: string,

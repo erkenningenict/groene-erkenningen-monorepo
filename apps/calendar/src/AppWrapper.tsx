@@ -1,4 +1,4 @@
-import Certificates from "./Certificates";
+import Calendar from "./Calendar";
 
 export default function AppWrapper() {
   const rootElement = document.getElementById("root");
@@ -6,5 +6,5 @@ export default function AppWrapper() {
   if (!rootElement) {
     return <div>Root element not found</div>;
   }
-  return <Certificates label={label ?? "groenkeur"} />;
+  return <Calendar label={label ?? "groenkeur"} />;
 }

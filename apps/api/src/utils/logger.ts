@@ -1,6 +1,6 @@
 import * as winston from 'winston'
 import DailyRotateFile from 'winston-daily-rotate-file'
-import env from '../../env'
+import env from './env'
 const { combine, timestamp, errors, splat, simple, cli } = winston.format
 
 const consoleOptions = {

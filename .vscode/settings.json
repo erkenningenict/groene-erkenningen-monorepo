@@ -8,8 +8,11 @@
     "elysiajs",
     "nums",
     "organisation",
+    "organisations",
     "postgres",
     "rpmv",
+    "tabler",
+    "Vali",
     "valibot"
   ],
   "cSpell.ignoreWords": ["PDF", "transform"],
