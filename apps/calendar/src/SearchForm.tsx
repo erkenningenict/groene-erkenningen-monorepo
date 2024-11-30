@@ -47,6 +47,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
 
   function onSubmit(values: CalendarSearch) {
     console.log("#DH# searchValues", values);
+
     // setSearchValues(values);
   }
 
