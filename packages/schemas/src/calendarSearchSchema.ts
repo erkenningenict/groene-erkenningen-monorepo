@@ -22,10 +22,19 @@ export const CalendarSearchSchema = v.object({
   organisation: v.optional(v.string(), all),
   locationType: v.optional(v.string(), all),
   search: v.optional(v.string(), ""),
-  zipCode: v.optional(
-    v.pipe(v.string(), v.regex(/[0-9]{4}/, "Vul 4 cijfers in")),
-    "",
-  ),
+  // zipCode: v.optional(
+  //   v.pipe(v.string(), v.regex(/[1-9]{1}[0-9]{3}/, "Vul 4 cijfers in")),
+  // ),
+  zipCode: v.union([
+    v.literal(""),
+    v.pipe(
+      v.string(),
+      v.regex(
+        /[1-9]{1}[0-9]{3}/,
+        "Vul 4 cijfers van een correcte postcode in (bijv. 1234)",
+      ),
+    ),
+  ]),
   distance: v.optional(v.string(), all),
 });
 

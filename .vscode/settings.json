@@ -3,9 +3,15 @@
     "**/*.{js,jsx,ts,tsx,vue,html,css,scss,less,json,md,mdx,graphql,yaml,yml,php}"
   ],
   "cSpell.words": [
+    "atts",
     "bunx",
+    "CURLOPT",
     "elysia",
     "elysiajs",
+    "FOLLOWLOCATION",
+    "ilike",
+    "NODEFDTD",
+    "NOIMPLIED",
     "nums",
     "organisation",
     "organisations",
@@ -13,7 +19,8 @@
     "rpmv",
     "tabler",
     "Vali",
-    "valibot"
+    "valibot",
+    "VERIFYPEER"
   ],
   "cSpell.ignoreWords": ["PDF", "transform"],
   "cSpell.ignorePaths": ["package-lock.json", "node_modules", ".env*"]

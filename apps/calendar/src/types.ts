@@ -1,6 +1,6 @@
 export type SearchValues = {
   meetingType: string;
-  certificate: string;
+  certificateType: string;
   organisation: string;
   locationType: string;
   search: string;

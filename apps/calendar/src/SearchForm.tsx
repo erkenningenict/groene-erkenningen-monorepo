@@ -1,5 +1,5 @@
 import { valibotResolver } from "@hookform/resolvers/valibot";
-import { all, MeetingTypes } from "@repo/constants";
+import { all, MeetingTypes, type MeetingTypesEnum } from "@repo/constants";
 import {
   CalendarSearchSchema,
   type CalendarSearch,
@@ -23,6 +23,8 @@ import {
   SelectValue,
 } from "@repo/ui/select";
 import { useForm } from "react-hook-form";
+import Results from "./Results";
+import { useSearchParams } from "react-router";
 
 type SearchFormProps = {
   label: string;
@@ -30,25 +32,32 @@ type SearchFormProps = {
 };
 
 export default function SearchForm({ label, data }: SearchFormProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const form = useForm<CalendarSearch>({
     resolver: valibotResolver(CalendarSearchSchema),
     values: {
-      meetingType: data?.defaultSettings.meetingType,
-      startDate: data?.defaultSettings.startDate,
-      endDate: data?.defaultSettings.endDate,
-      certificate: data?.defaultSettings.certificate,
-      organisation: data?.defaultSettings.organisation,
-      locationType: data?.defaultSettings.locationType,
-      search: data?.defaultSettings.search,
+      meetingType:
+        (searchParams.get("meetingType") as MeetingTypesEnum) ??
+        data?.defaultSettings.meetingType,
+      startDate:
+        searchParams.get("startDate") ?? data?.defaultSettings.startDate,
+      endDate: searchParams.get("endDate") ?? data?.defaultSettings.endDate,
+      certificate:
+        searchParams.get("certificate") ?? data?.defaultSettings.certificate,
+      organisation:
+        searchParams.get("organisation") ?? data?.defaultSettings.organisation,
+      locationType:
+        searchParams.get("locationType") ?? data?.defaultSettings.locationType,
+      search: searchParams.get("search") ?? data?.defaultSettings.search,
       zipCode: data?.defaultSettings.zipCode,
-      distance: data?.defaultSettings.distance,
+      distance: searchParams.get("distance") ?? data?.defaultSettings.distance,
     },
   });
 
   function onSubmit(values: CalendarSearch) {
     console.log("#DH# searchValues", values);
 
-    // setSearchValues(values);
+    setSearchParams(values);
   }
 
   return (
@@ -239,8 +248,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
                 <FormLabel>Zoek op titel, locatie, plaats</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Zoek op titel, locatie, plaats
-  "
+                    placeholder="Zoek op titel, locatie, plaats"
                     {...field}
                   />
                 </FormControl>
@@ -256,11 +264,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
                 <FormItem className="w-full md:w-80">
                   <FormLabel>Zoek met cijfers van uw postcode</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="Bijv. 1234
-  "
-                      {...field}
-                    />
+                    <Input placeholder="Bijv. 1234" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -282,16 +286,11 @@ export default function SearchForm({ label, data }: SearchFormProps) {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {[all, "0", "5", "10", "25", "50", "100"].map(
-                        (distance) => (
-                          <SelectItem
-                            key={distance}
-                            value={distance.toString()}
-                          >
-                            {`${distance} km.`}
-                          </SelectItem>
-                        ),
-                      )}
+                      {[all, "5", "10", "25", "50", "100"].map((distance) => (
+                        <SelectItem key={distance} value={distance.toString()}>
+                          {`${distance} km.`}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -312,7 +311,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
           </Button>
         </form>
       </Form>
-      {/* <Students label={label} searchValues={searchValues} /> */}
+      <Results label={label} />
     </div>
   );
 }
