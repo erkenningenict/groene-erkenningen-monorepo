@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import * as v from 'valibot'
 
 export enum LabelTypes {
   aocKeurmerk = 'AOC Keurmerk',
@@ -10,4 +10,4 @@ export enum LabelTypes {
   // boomveiligheidcontroleur = "boomVeiligheidControleur",
   // dakEnGevelbegroener = "dakEnGevelbegroener",
 }
-export const LabelTypesSchema = z.nativeEnum(LabelTypes)
+export const LabelTypesSchema = v.enum(LabelTypes)
