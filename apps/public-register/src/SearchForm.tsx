@@ -84,7 +84,10 @@ export default function SearchForm({
   return (
     <div className="flex flex-col gap-4">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-2"
+        >
           <FormField
             control={form.control}
             name="search"
@@ -105,29 +108,37 @@ export default function SearchForm({
               </FormItem>
             )}
           />
-          <FormLabel>Selecteer een certificaat</FormLabel>
-          {certificates.map(({ certificate }) => (
-            <div key={certificate} className="flex flex-row gap-2 items-center">
-              <input
-                {...form.register("certificate", {
-                  required: "Selecteer een certificaat",
-                })}
-                type="radio"
-                id={certificate}
-                value={certificate}
-                className="w-4 h-4 appearance-none text-primary border border-border rounded-full checked:bg-primary checked:border-border focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-              />
+          <div className="flex flex-col gap-2">
+            <FormLabel className="mb-1">Selecteer een certificaat</FormLabel>
+            <div className="flex flex-col gap-3">
+              {certificates.map(({ certificate }) => (
+                <div
+                  key={certificate}
+                  className="flex flex-row gap-2 items-center"
+                >
+                  <input
+                    {...form.register("certificate", {
+                      required: "Selecteer een certificaat",
+                    })}
+                    type="radio"
+                    id={certificate}
+                    value={certificate}
+                    className="w-4 h-4 appearance-none text-primary border border-border rounded-full checked:bg-primary checked:border-border focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                  />
 
-              <Label htmlFor={certificate}> {certificate}</Label>
+                  <Label htmlFor={certificate}> {certificate}</Label>
+                </div>
+              ))}
             </div>
-          ))}
-          {form.formState.errors.certificate && (
-            <div className="text-sm font-medium text-destructive">
-              {form.formState.errors.certificate.message}
-            </div>
-          )}
-
-          <Button type="submit">Zoeken</Button>
+            {form.formState.errors.certificate && (
+              <div className="text-sm font-medium text-destructive">
+                {form.formState.errors.certificate.message}
+              </div>
+            )}
+          </div>
+          <Button type="submit" className="w-fit">
+            Zoeken
+          </Button>
         </form>
       </Form>
       <Students label={label} searchValues={searchValues} />
