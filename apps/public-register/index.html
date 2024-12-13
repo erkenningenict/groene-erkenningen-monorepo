@@ -1,9 +1,17 @@
 <!doctype html>
-<html lang="nl" data-theme="groenkeur">
+<html lang="nl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Groene Erkenningen</title>
+    <style>
+      .py-2 {
+        padding: 10rem !important;
+      }
+      .text-primary {
+        color: blue;
+      }
+    </style>
   </head>
   <body style="padding: 3rem">
     <div
@@ -32,15 +40,15 @@
     // used to set the theme
     const theme = localStorage.getItem("theme");
     const selectElement = document.getElementById("selectLabel");
-    const htmlElement = document.getElementsByTagName("html")[0];
+    // const htmlElement = document.getElementsByTagName("html")[0];
     const targetElement = document.getElementById("root");
-    htmlElement.dataset.theme = theme;
+    // htmlElement.dataset.theme = theme;
     targetElement.dataset.theme = theme;
     selectElement.value = theme;
 
     selectElement.addEventListener("change", () => {
       targetElement.dataset.theme = selectElement.value;
-      htmlElement.dataset.theme = selectElement.value;
+      // htmlElement.dataset.theme = selectElement.value;
       localStorage.setItem("theme", selectElement.value);
       window.location.reload();
     });

@@ -7,7 +7,8 @@
 }
 
 @layer base {
-  :root {
+  :root,
+  :host {
     --border-radius-button: 0;
     --font-family: "Encode Sans";
     --background: 0 0% 100%;
@@ -37,30 +38,31 @@
     --radius: 0.5rem;
   }
 
-  [data-theme="groenkeur"] {
+  :host([data-theme="groenkeur"]) {
     --border-radius-button: 0.75rem;
     --font-family: Dosis;
     --foreground: 0 0% 7%; /* #111 */
     --primary: 77 67% 43%; /* #8db524 */
   }
 
-  [data-theme="aockeurmerk"] {
+  :host([data-theme="aockeurmerk"]) {
     --foreground: 0 0% 20%; /* #333 */
     --primary: 346 89% 35%; /* #a90a2e */
   }
-  [data-theme="kleurkeur"] {
+
+  :host([data-theme="kleurkeur"]) {
     --foreground: 0 0% 7%; /* #111 */
     --primary: 77 67% 43%; /* #8db524 */
   }
-  [data-theme="nkc"] {
+  :host([data-theme="nkc"]) {
     --foreground: 0 0% 20%; /* #333 */
     --primary: 18 90% 55%; /* #f46425 */
   }
-  [data-theme="rpmv"] {
+  :host([data-theme="rpmv"]) {
     --foreground: 0 0% 20%; /* #333 */
     --primary: 152 43% 28%; /* #286549 */
   }
-  [data-theme="gewasbescherming"] {
+  :host([data-theme="gewasbescherming"]) {
     --foreground: 0 0% 20%; /* #333 */
     --primary: 18 90% 55%; /* #f46425 */
   }

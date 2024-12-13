@@ -59,10 +59,10 @@ export function checkCertificateToJs(
     }
     const response = result.Envelope.Body.APICheckCertificaatResponse
     if (response.Status !== 'OK') {
-      logAndThrowError(
-        `Error checkCertificateToJs for ${label}: ${response.Status}. XML: ${xml}`,
-        new Error(response.Status),
-      )
+      // logAndThrowError(
+      //   `Error checkCertificateToJs for ${label}: ${response.Status}. XML: ${xml}`,
+      //   new Error(response.Status),
+      // )
     }
 
     const voorletters: SoapNewString[] = response.Voorletters.string
