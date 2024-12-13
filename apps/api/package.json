@@ -15,7 +15,7 @@
     "start": "bun run start:migrate && bun run start:app",
     "start:app": "bun run index.tsx",
     "start:migrate": "bun run db:migrate",
-    "typecheck": "tsc",
+    "typecheck": "tsc --noEmit",
     "get-version": "bun ./scripts/get-version.ts",
     "bump": "bun ./scripts/bump.ts",
     "patch": "bun run bump -- minor",
@@ -28,11 +28,6 @@
     "git:push": "git push && git push --tags origin"
   },
   "dependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tailwind-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@repo/constants": "workspace:*",
-    "@repo/schemas": "workspace:*",
     "@elysiajs/cors": "1.1.1",
     "@elysiajs/cron": "1.1.1",
     "@elysiajs/html": "^1.1.1",
@@ -48,6 +43,7 @@
     "xml2js": "0.6.2"
   },
   "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
     "@types/xml2js": "0.4.14",
     "bun-types": "latest",
     "prettier": "3.3.3",
