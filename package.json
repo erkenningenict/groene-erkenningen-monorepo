@@ -26,7 +26,9 @@
   },
   "packageManager": "bun@1.1.30",
   "dependencies": {
+    "@tanstack/react-form": "^0.40.1",
     "@tanstack/react-table": "^8.20.5",
+    "@tanstack/valibot-form-adapter": "^0.40.1",
     "date-fns": "^4.1.0",
     "react-router": "^7.0.2"
   }

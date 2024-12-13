@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom/client";
 import AppWrapper from "./AppWrapper";
 import styles from "./tailwind.css?inline";
+import { StrictMode } from "react";
 
 // Create a custom element
 class PublicRegister extends HTMLElement {
@@ -24,7 +25,11 @@ class PublicRegister extends HTMLElement {
 
     // Render React app
     const root = ReactDOM.createRoot(appRoot);
-    root.render(<AppWrapper />);
+    root.render(
+      <StrictMode>
+        <AppWrapper />
+      </StrictMode>,
+    );
   }
 }
 
@@ -40,3 +45,11 @@ fwPublicRegister.id = "root";
 
 // Add the custom element to the root node
 document.getElementById("root")!.replaceWith(fwPublicRegister);
+
+// import "./tailwind.css";
+
+// createRoot(document.getElementById("root")!).render(
+//   <StrictMode>
+//     <AppWrapper />
+//   </StrictMode>,
+// );
