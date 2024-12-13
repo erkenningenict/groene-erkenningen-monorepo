@@ -22,7 +22,7 @@ export async function checkCertificate(
   const soapUrl = env.SOAP_URL_CHECK_CERTIFICAAT
   const organisationCode = env.ORGANISATION_CODE_CHECK_CERTIFICAAT
 
-  const soapRequestBody = `<soap:APICheckCertificaat><soap:ZoekAchternaam>${search}</soap:ZoekAchternaam><soap:OrganisatieCode>${organisationCode}</soap:OrganisatieCode><soap:TypeCertificaat>${certificate}</soap:TypeCertificaat></soap:APICheckCertificaat>`
+  const soapRequestBody = `<soap:APICheckCertificaat><soap:ZoekAchternaam>${search}</soap:ZoekAchternaam><soap:OrganisatieCode>${organisationCode}</soap:OrganisatieCode><soap:TypeCertificaat>${decodeURIComponent(certificate)}</soap:TypeCertificaat></soap:APICheckCertificaat>`
 
   // if (process.env.E2E === 'true') {
   //   const xml = await getMockFile('./mocks/check-certificaat-new1.xml')
@@ -58,6 +58,12 @@ export function checkCertificateToJs(
       )
     }
     const response = result.Envelope.Body.APICheckCertificaatResponse
+    if (response.Status !== 'OK') {
+      logAndThrowError(
+        `Error checkCertificateToJs for ${label}: ${response.Status}. XML: ${xml}`,
+        new Error(response.Status),
+      )
+    }
 
     const voorletters: SoapNewString[] = response.Voorletters.string
     const tussenvoegsels: SoapNewString[] | string =
