@@ -14,8 +14,6 @@ import db from '../db/db'
 import { examenMomenten } from '../db/schema'
 import { addDays, endOfDay, startOfDay } from 'date-fns'
 
-import { CalendarSearchSchema } from '@repo/schemas'
-
 export async function getExamsForLabelAndCriteria(inputData: {
   label: string
   meetingType: string | undefined
