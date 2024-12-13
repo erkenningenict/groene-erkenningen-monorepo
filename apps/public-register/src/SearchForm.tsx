@@ -1,5 +1,5 @@
 import { valibotResolver } from "@hookform/resolvers/valibot";
-import { useForm } from "react-hook-form";
+import { Alert } from "@repo/ui/alert";
 import { Button } from "@repo/ui/button";
 import {
   Form,
@@ -10,12 +10,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@repo/ui/form";
-import * as v from "valibot";
 import { Input } from "@repo/ui/input";
-import { RadioGroup, RadioGroupItem } from "@repo/ui/radio-group";
-import { useState } from "react";
-import { Alert } from "@repo/ui/alert";
+import { Label } from "@repo/ui/label";
 import { Skeleton } from "@repo/ui/skeleton";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import * as v from "valibot";
 import Students from "./Students";
 import type { SearchValues } from "./types";
 
@@ -25,7 +25,7 @@ const formSchema = v.object({
     v.minLength(2, "Voer minimaal 2 karakters in"),
     v.maxLength(50, "Voer maximaal 50 karakters in"),
   ),
-  certificate: v.string(),
+  certificate: v.pipe(v.string(), v.minLength(1, "Selecteer een certificaat")),
 });
 
 type SearchFormProps = {
@@ -45,6 +45,7 @@ export default function SearchForm({
     resolver: valibotResolver(formSchema),
     defaultValues: {
       search: "",
+      certificate: "",
     },
   });
   const [searchValues, setSearchValues] = useState<SearchValues>({
@@ -104,52 +105,28 @@ export default function SearchForm({
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="certificate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Kies een persoonscertificaat</FormLabel>
+          <FormLabel>Selecteer een certificaat</FormLabel>
+          {certificates.map(({ certificate }) => (
+            <div key={certificate} className="flex flex-row gap-2 items-center">
+              <input
+                {...form.register("certificate", {
+                  required: "Selecteer een certificaat",
+                })}
+                type="radio"
+                id={certificate}
+                value={certificate}
+                className="w-4 h-4 appearance-none text-primary border border-border rounded-full checked:bg-primary checked:border-border focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+              />
 
-                {certificates?.length === 0 && (
-                  <Alert variant={"destructive"}>
-                    Er zijn geen persoonscertificaten gevonden. Neem contact op
-                    met de beheerder.
-                  </Alert>
-                )}
+              <Label htmlFor={certificate}> {certificate}</Label>
+            </div>
+          ))}
+          {form.formState.errors.certificate && (
+            <div className="text-sm font-medium text-destructive">
+              {form.formState.errors.certificate.message}
+            </div>
+          )}
 
-                {certificates && (
-                  <FormControl>
-                    <RadioGroup
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      className="flex flex-col space-y-1"
-                    >
-                      {certificates?.map(({ certificate }) => (
-                        <FormItem
-                          key={certificate}
-                          className="flex items-center space-x-3 space-y-0"
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter") {
-                              e.preventDefault();
-                              form.handleSubmit(onSubmit)();
-                            }
-                          }}
-                        >
-                          <FormControl>
-                            <RadioGroupItem value={certificate} />
-                          </FormControl>
-                          <FormLabel className="font-normal">
-                            {certificate}
-                          </FormLabel>
-                        </FormItem>
-                      ))}
-                    </RadioGroup>
-                  </FormControl>
-                )}
-              </FormItem>
-            )}
-          />
           <Button type="submit">Zoeken</Button>
         </form>
       </Form>

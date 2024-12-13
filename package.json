@@ -18,17 +18,15 @@
   },
   "devDependencies": {
     "@prettier/plugin-php": "^0.22.2",
-    "prettier": "^3.3.3",
-    "turbo": "^2.3.1"
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.3"
   },
   "engines": {
     "node": ">=18"
   },
   "packageManager": "bun@1.1.30",
   "dependencies": {
-    "@tanstack/react-form": "^0.40.1",
     "@tanstack/react-table": "^8.20.5",
-    "@tanstack/valibot-form-adapter": "^0.40.1",
     "date-fns": "^4.1.0",
     "react-router": "^7.0.2"
   }

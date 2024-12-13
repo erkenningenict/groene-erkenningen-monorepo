@@ -13,7 +13,7 @@ type StudentsProps = {
 
 export default function Students({ label, searchValues }: StudentsProps) {
   const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
-
+  console.log("#DH# search", searchValues);
   const {
     data: students,
     isLoading,
