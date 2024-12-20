@@ -25,7 +25,10 @@ const formSchema = v.object({
     v.minLength(2, "Voer minimaal 2 karakters in"),
     v.maxLength(50, "Voer maximaal 50 karakters in"),
   ),
-  certificate: v.pipe(v.string(), v.minLength(1, "Selecteer een certificaat")),
+  certificate: v.pipe(
+    v.string("Selecteer een certificaat"),
+    v.minLength(1, "Selecteer een certificaat"),
+  ),
 });
 
 type SearchFormProps = {
