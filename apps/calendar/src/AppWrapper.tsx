@@ -8,11 +8,14 @@ export default function AppWrapper() {
     return <div>Root element not found</div>;
   }
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Calendar label={label ?? "groenkeur"} />} />
-        <Route path="/:id" element={<div> Details</div>} />
-      </Routes>
-    </BrowserRouter>
+    <div className="Root">
+      <div id="selectRoot"></div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Calendar label={label ?? "groenkeur"} />} />
+          <Route path="/:id" element={<div> Details</div>} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }

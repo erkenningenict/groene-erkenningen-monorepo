@@ -15,16 +15,28 @@ import {
   FormMessage,
 } from "@repo/ui/form";
 import { Input } from "@repo/ui/input";
+// import {
+//   Select,
+//   SelectContent,
+//   SelectItem,
+//   SelectTrigger,
+//   SelectValue,
+// } from "@repo/ui/select";
+// import { Select } from "@base-ui-components/react/select";
 import {
+  Button,
+  Label,
+  ListBox,
+  ListBoxItem,
+  Popover,
   Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
   SelectValue,
-} from "@repo/ui/select";
+} from "react-aria-components";
 import { useForm } from "react-hook-form";
 import Results from "./Results";
 import { useSearchParams } from "react-router";
+import { useEffect, useRef } from "react";
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
 
 type SearchFormProps = {
   label: string;
@@ -59,6 +71,12 @@ export default function SearchForm({ label, data }: SearchFormProps) {
 
     setSearchParams(values);
   }
+  // const portalRoot = useRef<HTMLDivElement>(null);
+  const portalRoot = document.getElementById("selectRoot");
+  // useEffect(() => {
+  //   portalRoot.current = document.getElementById("selectRoot");
+  // }, []);
+  console.log("#DH# poralR", portalRoot);
 
   return (
     <div className="flex flex-col gap-4">
@@ -68,6 +86,57 @@ export default function SearchForm({ label, data }: SearchFormProps) {
           className="flex flex-col gap-2 w-full"
         >
           <FormField
+            control={form.control}
+            name="meetingType"
+            render={({ field }) => (
+              <>
+                <FormItem className="w-full md:w-80">
+                  <FormLabel>Type bijeenkomst</FormLabel>
+                  <Select.Root
+                    onValueChange={(e) => {
+                      console.log("#DH# e", e);
+                      field.onChange(e);
+                    }}
+                    value={field.value}
+                  >
+                    <FormControl>
+                      <Select.Trigger className="flex h-10 min-w-36 items-center justify-between gap-3 rounded-md border border-gray-200 pr-3 pl-3.5 text-base text-gray-900 select-none hover:bg-gray-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-blue-800 active:bg-gray-100 data-[popup-open]:bg-gray-100">
+                        <Select.Value placeholder="Selecteer een type bijeenkomst" />
+                      </Select.Trigger>
+                    </FormControl>
+                    <Select.Portal container={portalRoot}>
+                      <Select.Positioner className="outline-0" sideOffset={8}>
+                        <Select.Popup className="group origin-[var(--transform-origin)] rounded-md bg-[canvas] py-1 text-gray-900 shadow-lg shadow-gray-200 outline outline-gray-200 transition-[transform,scale,opacity] dark:shadow-none dark:-outline-offset-1  [[data-starting-style],[data-ending-style]]:scale-90 [[data-starting-style],[data-ending-style]]:opacity-0 data-[side=none]:[[data-starting-style],[data-ending-style]]:scale-100 data-[side=none]:[[data-starting-style],[data-ending-style]]:opacity-100 data-[side=none]:[[data-starting-style],[data-ending-style]]:transition-none">
+                          <Select.Arrow className="data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180">
+                            {/* <ArrowSvg /> */}
+                            <ChevronDown />
+                          </Select.Arrow>
+                          {MeetingTypes.map((meetingType) => (
+                            <Select.Item
+                              className="grid min-w-[var(--anchor-width)] cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-0 select-none group-data-[side=none]:min-w-[calc(var(--anchor-width)+1rem)] group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4 data-[highlighted]:relative data-[highlighted]:z-0 data-[highlighted]:text-gray-50 data-[highlighted]:before:absolute data-[highlighted]:before:inset-x-1 data-[highlighted]:before:inset-y-0 data-[highlighted]:before:-z-1 data-[highlighted]:before:rounded-sm data-[highlighted]:before:bg-slate-800"
+                              value={meetingType.value}
+                              key={meetingType.value}
+                            >
+                              <Select.ItemIndicator className="col-start-1">
+                                <Check className="size-3" />
+                              </Select.ItemIndicator>
+                              <Select.ItemText className="col-start-2">
+                                {meetingType.label}
+                              </Select.ItemText>
+                            </Select.Item>
+                          ))}
+                        </Select.Popup>
+                      </Select.Positioner>
+                    </Select.Portal>
+                  </Select.Root>
+                  <FormMessage />
+                </FormItem>
+              </>
+            )}
+          />
+          {/* 
+          
+                    <FormField
             control={form.control}
             name="meetingType"
             render={({ field }) => (
@@ -239,7 +308,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
                 <FormMessage />
               </FormItem>
             )}
-          />
+          /> */}
           <FormField
             control={form.control}
             name="search"
@@ -270,7 +339,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="distance"
               render={({ field }) => (
@@ -296,7 +365,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
                   <FormMessage />
                 </FormItem>
               )}
-            />
+            /> */}
           </div>
           {form.formState.errors && (
             <div className="text-red-500">
