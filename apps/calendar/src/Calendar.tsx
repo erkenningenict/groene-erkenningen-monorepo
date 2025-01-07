@@ -15,7 +15,7 @@ export default function Calendar({ label }: CertificatesProps) {
     `${apiBaseUrl}/calendar/settings/${label}`,
   );
 
-  if (isLoading || !data) {
+  if (isLoading) {
     return (
       <div className="flex flex-col gap-2">
         <Skeleton className="w-80 h-6" />
@@ -31,7 +31,7 @@ export default function Calendar({ label }: CertificatesProps) {
     );
   }
 
-  if (isError) {
+  if (isError || !data) {
     return (
       <Alert variant={"destructive"}>
         Er is iets mis gegaan bij het laden van de gegevens. Probeer het later

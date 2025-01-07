@@ -18,26 +18,78 @@ import {
 } from "@repo/ui/table";
 import { useState } from "react";
 import { DataTablePagination } from "./data-table-pagination";
+import { useSearchParams } from "react-router";
+import type { Exam } from "../../../api/src/services/exams";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  certificateTypes: {
+    value: string;
+    label: string;
+  }[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  certificateTypes,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sortId = searchParams.get("sortId") ?? "examenDatum";
+  const sortDirection = searchParams.get("sortDirection") ?? "asc";
+
+  const [sorting, setSorting] = useState<SortingState>([
+    { id: sortId, desc: sortDirection === "desc" },
+  ]);
+  const locationType = searchParams.get("locationType") ?? "[Alle]";
+
+  const zipCode = searchParams.get("zipCode") ?? "";
+
+  const isWebinar = locationType === "Webinar";
+  const queryDistance = !isWebinar && zipCode !== "";
+
+  const allPricesZero = (data as Exam[]).every(
+    (examMoment) => parseFloat((examMoment.prijs ?? 0).toString()) === 0,
+  );
+  const allCertificatesEqualTitle = (data as Exam[]).every(
+    (examMoment) => examMoment.certificaatType === examMoment.typeExamen,
+  );
+  const allOrganisatieBedrijfsnaamEmpty = (data as Exam[]).every(
+    (examMoment) => examMoment.organisatorBedrijfsnaam === "",
+  );
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    onSortingChange: setSorting,
+    onSortingChange: (updater) => {
+      const newSorting =
+        updater instanceof Function ? updater(sorting) : updater;
+
+      if (newSorting.at(0)) {
+        setSearchParams({
+          ...Object.fromEntries(searchParams),
+          sortId: newSorting.at(0)!.id,
+          sortDirection: newSorting[0].desc ? "desc" : "asc",
+        });
+      }
+
+      setSorting(updater);
+    },
     getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
+      columnVisibility: {
+        certificateType: !!(
+          certificateTypes.length > 0 && !allCertificatesEqualTitle === true
+        ),
+        afstandInKm: queryDistance,
+        locatiePlaats: !isWebinar,
+        prijs: !allPricesZero,
+        kennisaanbieder: !allOrganisatieBedrijfsnaamEmpty,
+      },
     },
   });
 

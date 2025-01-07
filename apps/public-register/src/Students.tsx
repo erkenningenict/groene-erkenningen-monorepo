@@ -1,44 +1,13 @@
 import { Alert } from "@repo/ui/alert";
-import { toDutchDate } from "../../api/src/utils/dateTimeUtils";
-import StudentSkeletons from "./StudentSkeleton";
 import { CheckCircle } from "lucide-react";
-import useFetch from "@repo/ui/hooks/useFetch";
 import type { Student } from "../../api/src/services/check-certificaat.server";
-import type { SearchValues } from "./types";
+import { toDutchDate } from "../../api/src/utils/dateTimeUtils";
 
 type StudentsProps = {
-  label: string;
-  searchValues: SearchValues;
+  students: Student[];
 };
 
-export default function Students({ label, searchValues }: StudentsProps) {
-  const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
-  const {
-    data: students,
-    isLoading,
-    isError,
-  } = useFetch<Student[]>(
-    `${apiBaseUrl}/publicRegister/certificates/${label}/${searchValues.certificate}/${searchValues.search}`,
-    !!searchValues.search && !!searchValues.certificate,
-  );
-
-  if (isLoading) {
-    return (
-      <div className="flex flex-col gap-3">
-        <StudentSkeletons count={3} />
-      </div>
-    );
-  }
-
-  if (isError) {
-    return (
-      <Alert variant={"destructive"}>
-        Er is iets mis gegaan bij het zoeken naar de gegevens. Probeer het later
-        nog eens.
-      </Alert>
-    );
-  }
-
+export default function Students({ students }: StudentsProps) {
   return (
     <div className="flex">
       <ul

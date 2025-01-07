@@ -9,6 +9,8 @@ import * as v from 'valibot'
 import { CalendarStartUpSettingsSchema } from '../services/calendarStartUpSettingsSchema'
 import { addDays, format } from 'date-fns'
 import { getExamsForLabelAndCriteria } from '../services/exams.js'
+import { CalendarSearchSchema } from '../services/query-params-validation.js'
+import { APIError } from '../errors/apiError.js'
 
 const getCertificateName = (certificate: string | null) => {
   switch (certificate) {
@@ -80,12 +82,23 @@ export const calendarEndpoints = new Elysia({
         organisation,
         locationType,
         search,
+        zipCode,
+        distance,
       },
+      error: errorHandler,
     }) => {
       const foundLabel = getLabel(label)
       logger.info(
-        `Get calendar certificates for label ${label}, foundLabel: ${foundLabel}, MeetingType ${meetingType}, startDate ${startDate}, endDate ${endDate}, certificate ${certificate}, organisation ${organisation}, locationType ${locationType}, search ${search}`,
+        `Get calendar certificates for label ${label}, foundLabel: ${foundLabel}, MeetingType ${meetingType}, startDate ${startDate}, endDate ${endDate}, certificate ${certificate}, organisation ${organisation}, locationType ${locationType}, search ${search}, zipCode ${zipCode}, distance ${distance}`,
       )
+
+      const parsed = v.safeParse(CalendarSearchSchema, { zipCode, distance })
+      if (parsed.issues) {
+        console.log('#DH# parsed', parsed.issues[0])
+        throw new Error(parsed.issues[0].message)
+      }
+      console.log('#DH# paserd output', parsed.output)
+
       try {
         const exams = await getExamsForLabelAndCriteria({
           label: foundLabel,
@@ -96,11 +109,20 @@ export const calendarEndpoints = new Elysia({
           organisation,
           locationType,
           search,
+          zipCode: parsed.output.zipCode,
+          distance: parsed.output.distance,
         })
         return exams
       } catch (error) {
-        console.log('#DH# error', error)
+        if (error instanceof APIError) {
+          return errorHandler(error.httpCode, {
+            code: 'ZIP_CODE_NOT_FOUND',
+            message: error.message,
+          })
+        }
+
         logger.error(error)
+        return errorHandler(500, 'Unknown error')
       }
     },
     {
@@ -115,6 +137,8 @@ export const calendarEndpoints = new Elysia({
         organisation: t.Optional(t.String()),
         locationType: t.Optional(t.String()),
         search: t.Optional(t.String()),
+        zipCode: t.Optional(t.String()),
+        distance: t.Optional(t.String()),
       }),
     },
   )

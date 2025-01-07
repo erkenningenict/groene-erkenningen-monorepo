@@ -18,6 +18,9 @@ import { useForm } from "react-hook-form";
 import * as v from "valibot";
 import Students from "./Students";
 import type { SearchValues } from "./types";
+import useFetch from "@repo/ui/hooks/useFetch";
+import type { Student } from "../../api/src/services/check-certificaat.server";
+import StudentSkeletons from "./StudentSkeleton";
 
 const formSchema = v.object({
   search: v.pipe(
@@ -59,6 +62,16 @@ export default function SearchForm({
   function onSubmit(values: v.InferOutput<typeof formSchema>) {
     setSearchValues(values);
   }
+
+  const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
+  const {
+    data: students,
+    isLoading,
+    isError,
+  } = useFetch<Student[]>(
+    `${apiBaseUrl}/publicRegister/certificates/${label}/${searchValues.certificate}/${searchValues.search}`,
+    !!searchValues.search && !!searchValues.certificate,
+  );
 
   if (isLoadingCertificates) {
     return (
@@ -139,12 +152,26 @@ export default function SearchForm({
               </div>
             )}
           </div>
-          <Button type="submit" className="w-fit">
+          <Button type="submit" className="w-fit" disabled={isLoading}>
             Zoeken
           </Button>
         </form>
       </Form>
-      <Students label={label} searchValues={searchValues} />
+
+      {isLoading && (
+        <div className="flex flex-col">
+          <StudentSkeletons count={1} />
+        </div>
+      )}
+
+      {isError && (
+        <Alert variant={"destructive"}>
+          Er is iets mis gegaan bij het zoeken naar de gegevens. Probeer het
+          later nog eens.
+        </Alert>
+      )}
+
+      {students && <Students students={students} />}
     </div>
   );
 }

@@ -11,8 +11,9 @@ import {
 } from 'drizzle-orm'
 import db from '../db/db'
 
-import { examenMomenten } from '../db/schema'
+import { examenMomenten, postcodes } from '../db/schema'
 import { addDays, endOfDay, startOfDay } from 'date-fns'
+import { APIError } from '../errors/apiError'
 
 export async function getExamsForLabelAndCriteria(inputData: {
   label: string
@@ -23,19 +24,13 @@ export async function getExamsForLabelAndCriteria(inputData: {
   organisation: string | undefined
   locationType: string | undefined
   search: string | undefined
-  // queryDistance: number,
+  zipCode: string
+  distance: number
   // showDistance,
   // geoLocation,
   // inputData,
 }) {
   const all = '[Alle]'
-  const showDistance = false
-  const geoLocation = { x: 0, y: 0 }
-  console.log(
-    '#DH#  (inputData.locationType ?? all)',
-    inputData.locationType === 'null' || all,
-  )
-
   const getValue = (value: string | undefined) => {
     if (value === all) {
       return all
@@ -43,23 +38,47 @@ export async function getExamsForLabelAndCriteria(inputData: {
     return value === 'null' || !value ? all : value
   }
 
+  const showDistance = inputData.zipCode !== '' && inputData.distance !== 0
+  console.log('#DH# showDistance', showDistance)
+
+  let geoLocation: { x: number; y: number } | null | undefined = { x: 0, y: 0 }
+  console.log('#DH# distance', inputData.distance)
+
+  const inputPostcode = +(inputData.zipCode ?? 0)
+  const postcode = await db
+    .select({ geoLocation: postcodes.geoLocation })
+    .from(postcodes)
+    .where(eq(postcodes.postcode, inputPostcode))
+
+  // TODO Fix when location is not found, ie zipcode: 3725 is wrong, results in error.
+
+  if (postcode.length === 0) {
+    console.log('#DH# not found')
+    throw new APIError(400, 'Zip code not found')
+  }
+
+  geoLocation = postcode.at(0)?.geoLocation
+
   const examMoments = await db
     .select({
       ...getTableColumns(examenMomenten),
-      // distance: (showDistance && geoLocation?.x
-      //   ? (sql`ST_Distance(ST_SetSRID(geo_location, 4326),
-      // ST_SetSRID(ST_MakePoint(${geoLocation.x}, ${geoLocation.y}), 4326), true)/1000 as afstandInKm` as number)
-      //   : 0) as number,
+      distance:
+        showDistance && geoLocation?.x
+          ? sql`ST_Distance(ST_SetSRID(geo_location, 4326),
+      ST_SetSRID(ST_MakePoint(${geoLocation.x}, ${geoLocation.y}), 4326), true)/1000`.as(
+              'afstandInKm',
+            )
+          : sql`0`.as('afstandInKm'),
     })
     .from(examenMomenten)
     .where(
       and(
         eq(examenMomenten.label, inputData.label),
         ne(examenMomenten.typeLocatie, 'Online'),
-        // queryDistance && inputData.data?.distance !== 0
-        //   ? sql`ST_DWithin(
-        // geo_location, ST_SetSRID(ST_MakePoint(${geoLocation!.x}, ${geoLocation!.y}), 4326), ${(inputData.data?.distance ?? 0) * 1000},false)`
-        //   : undefined,
+        showDistance
+          ? sql`ST_DWithin(
+        geo_location, ST_SetSRID(ST_MakePoint(${geoLocation!.x}, ${geoLocation!.y}), 4326), ${(inputData.distance ?? 0) * 1000},false)`
+          : undefined,
         gte(
           examenMomenten.examenDatum,
           startOfDay(
