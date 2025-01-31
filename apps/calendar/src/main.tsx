@@ -53,6 +53,10 @@ const theme = document.getElementById("root")!.dataset.theme;
 const fwPublicRegister = document.createElement(appName);
 fwPublicRegister.dataset.theme = theme;
 fwPublicRegister.id = "root";
+const htmlElement = document.querySelector("html");
+if (htmlElement) {
+  htmlElement.dataset.theme = theme;
+}
 
 // Add the custom element to the root node
 document.getElementById("root")!.replaceWith(fwPublicRegister);

@@ -1,10 +1,6 @@
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { all, MeetingTypes, type MeetingTypesEnum } from "@repo/constants";
-import {
-  CalendarSearchSchema,
-  type CalendarSearch,
-  type CalendarStartUpSettings,
-} from "@repo/schemas";
+import { type CalendarStartUpSettings } from "@repo/schemas";
 import { Button } from "@repo/ui/button";
 import {
   Form,
@@ -26,6 +22,11 @@ import {
 import { useForm } from "react-hook-form";
 import Results from "./Results";
 import { useSearchParams } from "react-router";
+import {
+  CalendarSearchSchema,
+  type CalendarSearch,
+} from "./schemas/calendarSearchSchema";
+import { MultiSelect } from "@repo/ui/multi-select";
 
 type SearchFormProps = {
   label: string;
@@ -43,8 +44,9 @@ export default function SearchForm({ label, data }: SearchFormProps) {
       startDate:
         searchParams.get("startDate") ?? data?.defaultSettings.startDate,
       endDate: searchParams.get("endDate") ?? data?.defaultSettings.endDate,
-      certificate:
-        searchParams.get("certificate") ?? data?.defaultSettings.certificate,
+      certificates:
+        searchParams.getAll("certificates") ??
+        data?.defaultSettings.certificates,
       organisation:
         searchParams.get("organisation") ?? data?.defaultSettings.organisation,
       locationType:
@@ -142,44 +144,38 @@ export default function SearchForm({ label, data }: SearchFormProps) {
               )}
             />
           </div>
-          <FormField
-            control={form.control}
-            name="certificate"
-            render={({ field }) => (
-              <FormItem className="w-full md:w-80">
-                <FormLabel>Type certificaat</FormLabel>
-                <Select
-                  onValueChange={(e) => {
-                    field.onChange(e);
-                    form.handleSubmit(onSubmit)();
-                  }}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecteer een type certificaat" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {[{ value: all, label: all }]
-                      .concat(data.certificates)
-                      .map((certificate) => (
-                        <SelectItem
-                          key={certificate.value}
-                          value={certificate.value}
-                        >
-                          {certificate.label}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-                <FormDescription>
-                  U kunt ook UG + BG samen selecteren.
-                </FormDescription>
-              </FormItem>
-            )}
-          />
+          {data.certificates.length > 0 && (
+            <FormField
+              control={form.control}
+              name="certificates"
+              render={({ field }) => (
+                <FormItem className="w-full md:w-80">
+                  <FormLabel>Filter type certificaat</FormLabel>
+                  <MultiSelect
+                    options={data.certificates}
+                    onValueChange={(e) => {
+                      field.onChange(e);
+                      form.handleSubmit(onSubmit)();
+                    }}
+                    defaultValue={field.value}
+                    selectAllText={all}
+                    showToggleAll
+                    clearText="Wissen"
+                    closeText="Sluiten"
+                    searchInputPlaceholder="Zoeken"
+                    placeholder="Kies certificaten"
+                    variant={"inverted"}
+                    maxDisplayCount={9}
+                  />
+                  <FormMessage />
+                  <FormDescription>
+                    {data.calendarHints?.certificates ??
+                      "U kunt op meerdere certificaten tegelijk zoeken"}
+                  </FormDescription>
+                </FormItem>
+              )}
+            />
+          )}
           {data.organisations.length > 0 && (
             <FormField
               control={form.control}

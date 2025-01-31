@@ -1,8 +1,8 @@
 module.exports = function (wallaby) {
   return {
-    autoDetect: ['bun test'],
-    files: ['src/**/*.ts'],
+    autoDetect: ['vitest'],
+    files: ['src/services/*.ts'],
 
-    tests: ['test/**/*.test.ts'],
+    // tests: ['test/**/*.test.ts'],
   }
 }

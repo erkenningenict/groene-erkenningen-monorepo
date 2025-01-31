@@ -18,7 +18,7 @@ import {
 } from "@repo/ui/table";
 import { useState } from "react";
 import { DataTablePagination } from "./data-table-pagination";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import type { Exam } from "../../../api/src/services/exams";
 
 interface DataTableProps<TData, TValue> {
@@ -38,6 +38,7 @@ export function DataTable<TData, TValue>({
   const [searchParams, setSearchParams] = useSearchParams();
   const sortId = searchParams.get("sortId") ?? "examenDatum";
   const sortDirection = searchParams.get("sortDirection") ?? "asc";
+  const navigate = useNavigate();
 
   const [sorting, setSorting] = useState<SortingState>([
     { id: sortId, desc: sortDirection === "desc" },
@@ -49,13 +50,13 @@ export function DataTable<TData, TValue>({
   const isWebinar = locationType === "Webinar";
   const queryDistance = !isWebinar && zipCode !== "";
 
-  const allPricesZero = (data as Exam[]).every(
+  const allPricesZero = (data as Exam[])?.every(
     (examMoment) => parseFloat((examMoment.prijs ?? 0).toString()) === 0,
   );
-  const allCertificatesEqualTitle = (data as Exam[]).every(
+  const allCertificatesEqualTitle = (data as Exam[])?.every(
     (examMoment) => examMoment.certificaatType === examMoment.typeExamen,
   );
-  const allOrganisatieBedrijfsnaamEmpty = (data as Exam[]).every(
+  const allOrganisatieBedrijfsnaamEmpty = (data as Exam[])?.every(
     (examMoment) => examMoment.organisatorBedrijfsnaam === "",
   );
 
@@ -69,11 +70,14 @@ export function DataTable<TData, TValue>({
         updater instanceof Function ? updater(sorting) : updater;
 
       if (newSorting.at(0)) {
-        setSearchParams({
-          ...Object.fromEntries(searchParams),
-          sortId: newSorting.at(0)!.id,
-          sortDirection: newSorting[0].desc ? "desc" : "asc",
-        });
+        searchParams.delete("sortId");
+        searchParams.delete("sortDirection");
+        searchParams.append("sortId", newSorting.at(0)!.id);
+        searchParams.append(
+          "sortDirection",
+          newSorting[0].desc ? "desc" : "asc",
+        );
+        setSearchParams(searchParams);
       }
 
       setSorting(updater);
@@ -82,7 +86,7 @@ export function DataTable<TData, TValue>({
     state: {
       sorting,
       columnVisibility: {
-        certificateType: !!(
+        certificaatType: !!(
           certificateTypes.length > 0 && !allCertificatesEqualTitle === true
         ),
         afstandInKm: queryDistance,
@@ -97,7 +101,7 @@ export function DataTable<TData, TValue>({
     <div className="flex flex-col gap-4">
       <div className="rounded-md border">
         <div className="p-4 flex-1 text-sm text-muted-foreground">
-          {table.getFilteredRowModel().rows.length} gevonden
+          {table.getFilteredRowModel().rows?.length} gevonden
         </div>
         <Table>
           <TableHeader>
@@ -124,6 +128,14 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="even:bg-gray-200 hover:bg-slate-200 transition cursor-pointer"
+                  onClick={() =>
+                    navigate(
+                      `/examenTypeNummer/${(row.original as { examenTypeNummer: string }).examenTypeNummer}/examenNummer/${
+                        (row.original as { examenNummer: string }).examenNummer
+                      }`,
+                    )
+                  }
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>

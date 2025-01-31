@@ -1,4 +1,4 @@
-import useFetch from "@repo/ui/hooks/useFetch";
+import useFetch from "./useFetch";
 import SearchForm from "./SearchForm";
 
 type CertificatesProps = {

@@ -11,7 +11,7 @@ export const columns: ColumnDef<Exam>[] = [
     cell: (info) => {
       return (
         <Link
-          to={`${info.row.original.examenTypeNummer}-${
+          to={`/examenTypeNummer/${info.row.original.examenTypeNummer}/examenNummer/${
             info.row.original.examenNummer
           }`}
           title={`${info.row.original.examenTypeNummer}-${
@@ -60,6 +60,7 @@ export const columns: ColumnDef<Exam>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Certificaat" />
     ),
+    enableSorting: true,
   },
   {
     id: "typeExamen",

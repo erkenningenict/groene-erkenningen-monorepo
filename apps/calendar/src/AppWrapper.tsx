@@ -1,5 +1,15 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { HashRouter, Route, Routes } from "react-router";
 import Calendar from "./Calendar";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { Details } from "./Details";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 0,
+    },
+  },
+});
 
 export default function AppWrapper() {
   const rootElement = document.getElementById("root");
@@ -10,12 +20,18 @@ export default function AppWrapper() {
   return (
     <div className="Root">
       <div id="selectRoot"></div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Calendar label={label ?? "groenkeur"} />} />
-          <Route path="/:id" element={<div> Details</div>} />
-        </Routes>
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <HashRouter>
+          <Routes>
+            <Route path="/" element={<Calendar label={label ?? "groenkeur"} />}>
+              <Route
+                path="examenTypeNummer/:examenTypeNummer/examenNummer/:examenNummer"
+                element={<Details label={label ?? "groenkeur"} />}
+              />
+            </Route>
+          </Routes>
+        </HashRouter>
+      </QueryClientProvider>
     </div>
   );
 }
