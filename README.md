@@ -87,3 +87,7 @@ See for usage:
 https://github.com/dan5py/turborepo-shadcn-ui/blob/bun/README.md
 
 `bun ui add <component-name>`
+
+## Wordpress login
+
+http://localhost:81/wp-admin

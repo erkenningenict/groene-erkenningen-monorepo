@@ -1,25 +1,18 @@
 import type { ColumnDef } from "@tanstack/react-table";
+import { ChevronRight } from "lucide-react";
 import type { Exam } from "../../../api/src/services/exams";
 import { DataTableColumnHeader } from "./data-table-column-header";
-import { Link } from "react-router";
-import { ChevronRight } from "lucide-react";
+import { Button } from "@repo/ui/button";
 
 export const columns: ColumnDef<Exam>[] = [
   {
     accessorFn: (row) => row.examenNummer,
     id: "examenNummer",
-    cell: (info) => {
+    cell: () => {
       return (
-        <Link
-          to={`${info.row.original.examenTypeNummer}-${
-            info.row.original.examenNummer
-          }`}
-          title={`${info.row.original.examenTypeNummer}-${
-            info.row.original.examenNummer
-          }`}
-        >
+        <Button variant={"ghost"} size={"icon"}>
           <ChevronRight />
-        </Link>
+        </Button>
       );
     },
     header: () => <></>,
@@ -27,8 +20,6 @@ export const columns: ColumnDef<Exam>[] = [
   {
     accessorFn: (row) => row.examenDatum,
     id: "examenDatum",
-    // cell: (info) => info.getValue(),
-    // cell: (info) => toDutchDateTime(info.getValue() as string),
     cell: ({ row }) => {
       const date = new Date(row.getValue("examenDatum"));
       const formatted = new Intl.DateTimeFormat("nl-NL", {
@@ -43,15 +34,6 @@ export const columns: ColumnDef<Exam>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Datum/tijd" />
     ),
-    // header: ({ column }) => (
-    //   <Button
-    //     variant="ghost"
-    //     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-    //   >
-    //     Datum/tijd
-    //     <ArrowUpDown className="ml-2 h-4 w-4" />
-    //   </Button>
-    // ),
   },
   {
     id: "certificaatType",
@@ -60,6 +42,7 @@ export const columns: ColumnDef<Exam>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Certificaat" />
     ),
+    enableSorting: true,
   },
   {
     id: "typeExamen",
@@ -107,7 +90,6 @@ export const columns: ColumnDef<Exam>[] = [
   {
     id: "prijs",
     accessorFn: (row) => row.prijs,
-    // cell: (info) => euroFormatter.format(info.getValue() as number) || 0,
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("prijs"));
       const formatted = new Intl.NumberFormat("nl-NL", {

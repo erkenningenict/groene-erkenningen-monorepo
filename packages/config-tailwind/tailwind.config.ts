@@ -3,7 +3,12 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 // We want each package to be responsible for its own content.
 const config: Omit<Config, "content"> = {
   darkMode: ["class"],
-  content: ["./app/**/*.{ts,tsx}"],
+  content: ["./apps/**/*.{ts,tsx}"],
+  // content: [
+  //   // "./apps/calendar/**/*.{ts,tsx}",
+  //   // "./apps/public-register/**/*.{ts,tsx}",
+  //   "./packages/ui/**/*.{ts,tsx}",
+  // ],
   theme: {
     extend: {
       borderRadius: {

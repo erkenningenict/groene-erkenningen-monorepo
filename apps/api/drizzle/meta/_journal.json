@@ -50,6 +50,13 @@
       "when": 1731713580944,
       "tag": "0006_exotic_starhawk",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1737732399234,
+      "tag": "0007_flowery_nekra",
+      "breakpoints": true
     }
   ]
 }

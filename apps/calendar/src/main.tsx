@@ -1,14 +1,3 @@
-import { createRoot } from "react-dom/client";
-// import { StrictMode } from "react";
-// import "./tailwind.css";
-// import AppWrapper from "./AppWrapper.tsx";
-
-// createRoot(document.getElementById("root")!).render(
-//   <StrictMode>
-//     <AppWrapper />
-//   </StrictMode>,
-// );
-
 import ReactDOM from "react-dom/client";
 import AppWrapper from "./AppWrapper";
 import styles from "./tailwind.css?inline";
@@ -50,17 +39,22 @@ customElements.define(appName, Calendar);
 
 const theme = document.getElementById("root")!.dataset.theme;
 
-const fwPublicRegister = document.createElement(appName);
-fwPublicRegister.dataset.theme = theme;
-fwPublicRegister.id = "root";
+const fwCalendar = document.createElement(appName);
+fwCalendar.dataset.theme = theme;
+fwCalendar.id = "root";
+const htmlElement = document.querySelector("html");
+if (htmlElement) {
+  htmlElement.dataset.theme = theme;
+}
 
 // Add the custom element to the root node
-document.getElementById("root")!.replaceWith(fwPublicRegister);
+document.getElementById("root")!.replaceWith(fwCalendar);
 
-import "./tailwind.css";
+// None custom element rendering:
+// import "./tailwind.css";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <AppWrapper />
-  </StrictMode>,
-);
+// createRoot(document.getElementById("root")!).render(
+//   <StrictMode>
+//     <AppWrapper />
+//   </StrictMode>,
+// );

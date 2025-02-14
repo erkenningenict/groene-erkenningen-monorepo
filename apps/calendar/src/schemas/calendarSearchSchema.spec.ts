@@ -89,15 +89,15 @@ describe("calendarSchema", () => {
     it("should return all for no certificate", () => {
       const input = {};
       const x = v.parse(CalendarSearchSchema, input);
-      expect(x.certificate).toEqual(all);
+      expect(x.certificates).toEqual(all);
     });
 
     it("should return a value for a given certificate", () => {
       const input = {
-        certificate: "certificate",
+        certificates: "certificate",
       };
       const x = v.parse(CalendarSearchSchema, input);
-      expect(x.certificate).toEqual("certificate");
+      expect(x.certificates).toEqual("certificate");
     });
   });
 

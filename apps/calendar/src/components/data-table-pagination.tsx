@@ -7,13 +7,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@repo/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@repo/ui/select";
+import { NativeSelect } from "@repo/ui/native-select";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
@@ -26,23 +20,19 @@ export function DataTablePagination<TData>({
     <div className="flex items-center justify-center w-full space-x-1 lg:space-x-8">
       <div className="flex items-center space-x-2">
         <p className="text-sm font-medium">Rijen per pagina</p>
-        <Select
+        <NativeSelect
+          className="w-fit"
           value={`${table.getState().pagination.pageSize}`}
-          onValueChange={(value) => {
-            table.setPageSize(Number(value));
+          onChange={(event) => {
+            table.setPageSize(Number(event.target.value));
           }}
         >
-          <SelectTrigger className="h-8 w-[70px]">
-            <SelectValue placeholder={table.getState().pagination.pageSize} />
-          </SelectTrigger>
-          <SelectContent side="top">
-            {[10, 20, 30, 40, 50].map((pageSize) => (
-              <SelectItem key={pageSize} value={`${pageSize}`}>
-                {pageSize}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          {[10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={`${pageSize}`}>
+              {pageSize}
+            </option>
+          ))}
+        </NativeSelect>
       </div>
       <div className="flex w-[110px] items-center justify-center text-sm font-medium">
         Pagina {table.getState().pagination.pageIndex + 1} van{" "}

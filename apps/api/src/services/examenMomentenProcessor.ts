@@ -1,6 +1,6 @@
 // Fetch configs
 
-import { addDays, set } from 'date-fns'
+import { addDays, set, startOfDay } from 'date-fns'
 import { db } from '../db/db'
 import {
   config,
@@ -43,13 +43,13 @@ export async function examenMomentenProcessor() {
 }
 
 export async function setGeoLocation() {
-  const statement = sql`update "examenMomenten" e
+  const statement = sql.raw(`update "examenMomenten" e
 set geo_location = p.geo_location
 from postcodes p
-where cast(left(e.locatie_postcode, 4) as decimal) = p.postcode
+where cast(left(e.locatie_postcode, 4) as integer) = p.postcode
   and e.type_locatie != 'Webinar'
   and e.type_locatie != 'Online'
-  and (left(locatie_postcode, 4) ~ '^[0-9]{4,4}$') = true`
+  and (left(locatie_postcode, 4) ~ '^[1-9][0-9]{3}$')`)
   await db.execute(statement)
 }
 
@@ -57,7 +57,7 @@ export async function fetchAndInsertExamenMomenten(
   config: SelectConfig,
   typeBijeenkomst: TypeBijeenkomst,
 ) {
-  const startDate = new Date().toISOString()
+  const startDate = startOfDay(new Date()).toISOString()
 
   const endDate = addDays(new Date(), env.NO_OF_DAYS_TO_FETCH).toISOString()
   let examenMomentenFromApi: AlleExamenMomentenItem[] | undefined = []

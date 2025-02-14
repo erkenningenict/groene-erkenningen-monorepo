@@ -230,10 +230,10 @@ export const euroFormatter = Intl.NumberFormat('nl-NL', {
 })
 
 export async function logAndThrowError(message: string, error: any) {
-  await sendSlackErrorMessage({
-    message,
-    error,
-  })
+  // await sendSlackErrorMessage({
+  //   message,
+  //   error,
+  // })
   logger.error(message)
   throw new Error(message)
 }

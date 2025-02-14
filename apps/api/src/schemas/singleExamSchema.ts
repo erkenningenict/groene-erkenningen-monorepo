@@ -1,0 +1,26 @@
+import { object, string, number, date, optional } from 'valibot'
+
+export const SingleExamSchema = object({
+  examennummer: string(),
+  examendatum: date(),
+  einddatumExamen: date(),
+  examentype: string(),
+  examentypeCode: string(),
+  examentypeOmschrijving: string(),
+  status: string(),
+  totaalAantalPlekken: number(),
+  openPlekken: number(),
+  locatieNaam: string(),
+  locatiePostcode: string(),
+  locatiePlaats: string(),
+  branche: string(),
+  organisatorBedrijfsnaam: string(),
+  organisatorStraat: string(),
+  organisatorHuisnummer: string(),
+  organisatorToevoeging: string(),
+  organisatorPlaats: string(),
+  organisatorEmail: string(),
+  organisatorTelefoon: string(),
+  url: string(),
+  prijs: string(),
+})
