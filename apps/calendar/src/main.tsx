@@ -1,14 +1,3 @@
-import { createRoot } from "react-dom/client";
-// import { StrictMode } from "react";
-// import "./tailwind.css";
-// import AppWrapper from "./AppWrapper.tsx";
-
-// createRoot(document.getElementById("root")!).render(
-//   <StrictMode>
-//     <AppWrapper />
-//   </StrictMode>,
-// );
-
 import ReactDOM from "react-dom/client";
 import AppWrapper from "./AppWrapper";
 import styles from "./tailwind.css?inline";
@@ -61,10 +50,11 @@ if (htmlElement) {
 // Add the custom element to the root node
 document.getElementById("root")!.replaceWith(fwPublicRegister);
 
-import "./tailwind.css";
+// None custom element rendering:
+// import "./tailwind.css";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <AppWrapper />
-  </StrictMode>,
-);
+// createRoot(document.getElementById("root")!).render(
+//   <StrictMode>
+//     <AppWrapper />
+//   </StrictMode>,
+// );

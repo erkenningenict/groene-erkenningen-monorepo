@@ -17,9 +17,10 @@ import {
   TableRow,
 } from "@repo/ui/table";
 import { useState } from "react";
-import { DataTablePagination } from "./data-table-pagination";
-import { useNavigate, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import type { Exam } from "../../../api/src/services/exams";
+import type { SelectedExam } from "../Results";
+import { DataTablePagination } from "./data-table-pagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -28,17 +29,18 @@ interface DataTableProps<TData, TValue> {
     value: string;
     label: string;
   }[];
+  onSelect: ({ examenTypeNummer, examenNummer }: SelectedExam) => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   certificateTypes,
+  onSelect,
 }: DataTableProps<TData, TValue>) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortId = searchParams.get("sortId") ?? "examenDatum";
   const sortDirection = searchParams.get("sortDirection") ?? "asc";
-  const navigate = useNavigate();
 
   const [sorting, setSorting] = useState<SortingState>([
     { id: sortId, desc: sortDirection === "desc" },
@@ -130,11 +132,13 @@ export function DataTable<TData, TValue>({
                   data-state={row.getIsSelected() && "selected"}
                   className="even:bg-gray-200 hover:bg-slate-200 transition cursor-pointer"
                   onClick={() =>
-                    navigate(
-                      `/examenTypeNummer/${(row.original as { examenTypeNummer: string }).examenTypeNummer}/examenNummer/${
-                        (row.original as { examenNummer: string }).examenNummer
-                      }`,
-                    )
+                    onSelect({
+                      examenTypeNummer: (
+                        row.original as { examenTypeNummer: string }
+                      ).examenTypeNummer,
+                      examenNummer: (row.original as { examenNummer: string })
+                        .examenNummer,
+                    })
                   }
                 >
                   {row.getVisibleCells().map((cell) => (

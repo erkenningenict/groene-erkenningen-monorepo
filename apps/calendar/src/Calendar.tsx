@@ -3,7 +3,6 @@ import type { CalendarStartUpSettings } from "@repo/schemas";
 import { Skeleton } from "@repo/ui/skeleton";
 import { Alert } from "@repo/ui/alert";
 import { useQuery } from "@tanstack/react-query";
-import { Outlet, useLocation } from "react-router";
 
 type CalendarProps = {
   label: string;
@@ -11,8 +10,6 @@ type CalendarProps = {
 
 export default function Calendar({ label }: CalendarProps) {
   const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
-  const location = useLocation();
-  const background = location.state && location.state.background;
 
   const { data, isLoading, isError } = useQuery<CalendarStartUpSettings>({
     queryKey: ["calendar", label],
@@ -48,10 +45,5 @@ export default function Calendar({ label }: CalendarProps) {
     );
   }
 
-  return (
-    <>
-      {background && <Outlet />}
-      <SearchForm data={data} label={label} />
-    </>
-  );
+  return <SearchForm data={data} label={label} />;
 }

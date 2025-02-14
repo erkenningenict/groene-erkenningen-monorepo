@@ -122,6 +122,7 @@ interface MultiSelectProps
   showClearIcon?: boolean;
   onSearchValueChanged?: (value: string) => void;
   showToggleAll?: boolean;
+  container: HTMLDivElement;
 }
 
 export const MultiSelect = React.forwardRef<
@@ -151,6 +152,7 @@ export const MultiSelect = React.forwardRef<
       clearText = "Clear",
       closeText = "Close",
       showClearIcon = false,
+      container,
       ...props
     },
     ref,
@@ -211,7 +213,7 @@ export const MultiSelect = React.forwardRef<
             {...props}
             onClick={handleTogglePopover}
             className={cn(
-              "flex w-full rounded-md border border-slate-200 min-h-12 h-auto items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto pl-2.5 pr-2",
+              "flex w-full rounded-md border border-slate-200 min-h-10 h-auto items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto px-3 pr-2",
               className,
             )}
           >
@@ -288,7 +290,7 @@ export const MultiSelect = React.forwardRef<
                 <span className="text-sm text-muted-foreground">
                   {placeholder}
                 </span>
-                <ChevronDown className="h-4 cursor-pointer text-muted-foreground mx-2" />
+                <ChevronDown className="h-4 cursor-pointer text-muted-foreground mx-1" />
               </div>
             )}
           </Button>
@@ -296,6 +298,7 @@ export const MultiSelect = React.forwardRef<
         <PopoverContent
           className="w-auto p-0"
           align="start"
+          container={container}
           onEscapeKeyDown={() => setIsPopoverOpen(false)}
         >
           <Command shouldFilter={shouldFilter}>

@@ -7,7 +7,6 @@
 }
 
 @layer base {
-  :root,
   :host {
     --background: 0 0% 100%;
     --foreground: 0 0% 7%; /* #111 */
@@ -35,45 +34,40 @@
     --radius: 0.5rem;
   }
 
-  :root[data-theme="groenkeur"],
-  :host[data-theme="groenkeur"] {
+  :host([data-theme="groenkeur"]) {
     --border-radius-button: 0.75rem;
     --font-family: Dosis;
     --foreground: 0 0% 7%; /* #111 */
     --primary: 77 67% 43%; /* #8db524 */
   }
 
-  :root[data-theme="aockeurmerk"],
-  :host[data-theme="aockeurmerk"] {
+  :host([data-theme="aockeurmerk"]) {
     --font-family: "Encode Sans";
     --border-radius-button: 0;
     --foreground: 0 0% 20%; /* #333 */
     --primary: 346 89% 35%; /* #a90a2e */
   }
 
-  :root[data-theme="kleurkeur"],
-  :host[data-theme="kleurkeur"] {
+  :host([data-theme="kleurkeur"]) {
     --font-family: "Encode Sans";
     --border-radius-button: 0;
     --foreground: 0 0% 7%; /* #111 */
     --primary: 77 67% 43%; /* #8db524 */
   }
-  :root[data-theme="nkc"],
-  :host[data-theme="nkc"] {
+  :host([data-theme="nkc"]) {
     --font-family: "Encode Sans";
     --border-radius-button: 0;
     --foreground: 0 0% 20%; /* #333 */
     --primary: 18 90% 55%; /* #f46425 */
   }
-  :root[data-theme="rpmv"],
-  :host[data-theme="rpmv"] {
+  :host([data-theme="rpmv"]) {
     --font-family: "Encode Sans";
     --border-radius-button: 0;
     --foreground: 0 0% 20%; /* #333 */
     --primary: 152 43% 28%; /* #286549 */
   }
-  :root[data-theme="gewasbescherming"],
-  :host[data-theme="gewasbescherming"] {
+
+  :host([data-theme="gewasbescherming"]) {
     --font-family: "Encode Sans";
     --border-radius-button: 0;
     --foreground: 0 0% 20%; /* #333 */

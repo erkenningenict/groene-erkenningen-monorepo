@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HashRouter, Route, Routes } from "react-router";
 import Calendar from "./Calendar";
-import { Details } from "./Details";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,17 +17,14 @@ export default function AppWrapper() {
     return <div>Root element not found</div>;
   }
   return (
-    <div className="Root">
-      <div id="selectRoot"></div>
+    <div className="Root" id="fwRoot">
       <QueryClientProvider client={queryClient}>
         <HashRouter>
           <Routes>
-            <Route path="/" element={<Calendar label={label ?? "groenkeur"} />}>
-              <Route
-                path="examenTypeNummer/:examenTypeNummer/examenNummer/:examenNummer"
-                element={<Details label={label ?? "groenkeur"} />}
-              />
-            </Route>
+            <Route
+              path="/"
+              element={<Calendar label={label ?? "groenkeur"} />}
+            ></Route>
           </Routes>
         </HashRouter>
       </QueryClientProvider>

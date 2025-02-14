@@ -12,13 +12,6 @@ import {
   FormMessage,
 } from "@repo/ui/form";
 import { Input } from "@repo/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@repo/ui/select";
 import { useForm } from "react-hook-form";
 import Results from "./Results";
 import { useSearchParams } from "react-router";
@@ -27,6 +20,8 @@ import {
   type CalendarSearch,
 } from "./schemas/calendarSearchSchema";
 import { MultiSelect } from "@repo/ui/multi-select";
+import { useState } from "react";
+import { NativeSelect } from "@repo/ui/native-select";
 
 type SearchFormProps = {
   label: string;
@@ -35,6 +30,8 @@ type SearchFormProps = {
 
 export default function SearchForm({ label, data }: SearchFormProps) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [container, setContainer] = useState<HTMLDivElement | null>(null);
+
   const form = useForm<CalendarSearch>({
     resolver: valibotResolver(CalendarSearchSchema),
     values: {
@@ -63,6 +60,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
 
   return (
     <div className="flex flex-col gap-4">
+      <div ref={setContainer}></div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -75,29 +73,24 @@ export default function SearchForm({ label, data }: SearchFormProps) {
               <>
                 <FormItem className="w-full md:w-80">
                   <FormLabel>Type bijeenkomst</FormLabel>
-                  <Select
-                    onValueChange={(e) => {
-                      field.onChange(e);
-                      form.handleSubmit(onSubmit)();
-                    }}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecteer een type bijeenkomst" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
+                  <FormControl>
+                    <NativeSelect
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        form.handleSubmit(onSubmit)();
+                      }}
+                    >
                       {MeetingTypes.map((meetingType) => (
-                        <SelectItem
+                        <option
                           key={meetingType.value}
                           value={meetingType.value}
                         >
                           {meetingType.label}
-                        </SelectItem>
+                        </option>
                       ))}
-                    </SelectContent>
-                  </Select>
+                    </NativeSelect>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               </>
@@ -152,6 +145,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
                 <FormItem className="w-full md:w-80">
                   <FormLabel>Filter type certificaat</FormLabel>
                   <MultiSelect
+                    container={container!}
                     options={data.certificates}
                     onValueChange={(e) => {
                       field.onChange(e);
@@ -183,26 +177,21 @@ export default function SearchForm({ label, data }: SearchFormProps) {
               render={({ field }) => (
                 <FormItem className="w-full md:w-80">
                   <FormLabel>Kennisaanbieder</FormLabel>
-                  <Select
-                    onValueChange={(e) => {
-                      field.onChange(e);
-                      form.handleSubmit(onSubmit)();
-                    }}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecteer een organisatie" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
+                  <FormControl>
+                    <NativeSelect
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        form.handleSubmit(onSubmit)();
+                      }}
+                    >
                       {[all].concat(data.organisations).map((organisation) => (
-                        <SelectItem key={organisation} value={organisation}>
+                        <option key={organisation} value={organisation}>
                           {organisation}
-                        </SelectItem>
+                        </option>
                       ))}
-                    </SelectContent>
-                  </Select>
+                    </NativeSelect>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -214,19 +203,14 @@ export default function SearchForm({ label, data }: SearchFormProps) {
             render={({ field }) => (
               <FormItem className="w-full md:w-80">
                 <FormLabel>Locatie type</FormLabel>
-                <Select
-                  onValueChange={(e) => {
-                    field.onChange(e);
-                    form.handleSubmit(onSubmit)();
-                  }}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Selecteer locatie type" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
+                <FormControl>
+                  <NativeSelect
+                    {...field}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      form.handleSubmit(onSubmit)();
+                    }}
+                  >
                     {[
                       { value: "[Alle]", label: "[Alle]" },
                       { value: "Fysieke locatie", label: "Fysieke locatie" },
@@ -240,15 +224,16 @@ export default function SearchForm({ label, data }: SearchFormProps) {
                         return true;
                       })
                       .map((locationType) => (
-                        <SelectItem
+                        <option
                           key={locationType.value}
                           value={locationType.value}
                         >
                           {locationType.label}
-                        </SelectItem>
+                        </option>
                       ))}
-                  </SelectContent>
-                </Select>
+                  </NativeSelect>
+                </FormControl>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -289,26 +274,21 @@ export default function SearchForm({ label, data }: SearchFormProps) {
               render={({ field }) => (
                 <FormItem className="w-full md:w-28">
                   <FormLabel>Max. afstand</FormLabel>
-                  <Select
-                    onValueChange={(e) => {
-                      field.onChange(e);
-                      form.handleSubmit(onSubmit)();
-                    }}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecteer een maximale afstand" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
+                  <FormControl>
+                    <NativeSelect
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e);
+                        form.handleSubmit(onSubmit)();
+                      }}
+                    >
                       {[all, "5", "10", "25", "50", "100"].map((distance) => (
-                        <SelectItem key={distance} value={distance.toString()}>
+                        <option key={distance} value={distance.toString()}>
                           {`${distance} km.`}
-                        </SelectItem>
+                        </option>
                       ))}
-                    </SelectContent>
-                  </Select>
+                    </NativeSelect>
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -325,6 +305,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
           <Button type="submit" className="w-fit">
             Zoeken
           </Button>
+          <div ref={setContainer}></div>
         </form>
       </Form>
       <Results label={label} certificateTypes={data.certificates} />

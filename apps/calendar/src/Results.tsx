@@ -1,11 +1,15 @@
-import { DataTable } from "./components/data-table";
-import { columns } from "./components/columns";
+import { Alert, AlertDescription, AlertTitle } from "@repo/ui/alert";
 import { Skeleton } from "@repo/ui/skeleton";
-import type { Exam } from "../../api/src/services/exams";
-import { Outlet, useSearchParams } from "react-router";
-import { Alert } from "@repo/ui/alert";
 import { useQuery } from "@tanstack/react-query";
+import { CircleAlertIcon } from "lucide-react";
+import { useState } from "react";
+import { useSearchParams } from "react-router";
+import type { Exam } from "../../api/src/services/exams";
+import { columns } from "./components/columns";
+import { DataTable } from "./components/data-table";
+import { Details } from "./Details";
 import { hasCodeProperty } from "./utils";
+import { Dialog } from "@repo/ui/dialog";
 
 type ResultsProps = {
   label: string;
@@ -15,9 +19,16 @@ type ResultsProps = {
   }[];
 };
 
+export type SelectedExam = {
+  examenTypeNummer: string;
+  examenNummer: string;
+};
+
 export default function Results({ label, certificateTypes }: ResultsProps) {
   const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
   const [searchParams] = useSearchParams();
+  const [selectedExam, setSelectedExam] = useState<SelectedExam | null>(null);
+  const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
   searchParams.delete("sortId");
   searchParams.delete("sortDirection");
@@ -50,9 +61,15 @@ export default function Results({ label, certificateTypes }: ResultsProps) {
     if (hasCodeProperty(error)) {
       return (
         <Alert variant={"destructive"}>
-          {error.code === "ZIP_CODE_NOT_FOUND"
-            ? "Postcode niet gevonden, controleer de ingevoerde postcode en zoek opnieuw."
-            : ""}
+          {error.code === "ZIP_CODE_NOT_FOUND" && (
+            <>
+              <CircleAlertIcon />
+              <AlertTitle>Postcode niet gevonden</AlertTitle>
+              <AlertDescription>
+                Controleer de ingevoerde postcode en zoek opnieuw.
+              </AlertDescription>
+            </>
+          )}
         </Alert>
       );
     }
@@ -66,12 +83,27 @@ export default function Results({ label, certificateTypes }: ResultsProps) {
 
   return (
     <>
-      <DataTable
+      <DataTable<Exam, typeof columns>
         columns={columns}
         data={data}
         certificateTypes={certificateTypes}
+        onSelect={(exam) => setSelectedExam(exam)}
       />
-      <Outlet />
+      <div ref={setContainer}></div>
+
+      {selectedExam && (
+        <Dialog
+          open={!!selectedExam}
+          onOpenChange={() => setSelectedExam(null)}
+        >
+          <Details
+            label={label}
+            selectedExam={selectedExam}
+            container={container}
+            onClose={() => setSelectedExam(null)}
+          />
+        </Dialog>
+      )}
     </>
   );
 }
