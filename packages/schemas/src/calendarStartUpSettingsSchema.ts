@@ -1,4 +1,4 @@
-import { MeetingTypes, MeetingTypesEnum } from "@repo/constants";
+import { MeetingTypesEnum } from "@repo/constants";
 import * as v from "valibot";
 
 export const CalendarStartUpSettingsSchema = v.object({

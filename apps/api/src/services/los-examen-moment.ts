@@ -124,14 +124,9 @@ export async function losExamenMomentToJs(
       prijs: euroFormatter.format(getNullableNumber(response.APIPrijs)),
     }
 
-    //   console.log('#DH# vrolijk hier')
     logger.info(`Los examen moment data: ${JSON.stringify(losExamenMoment)}`)
     return losExamenMoment
-    // // } catch (err) {
-    //   throw err
   } catch (err) {
-    console.log('#DH# error', err)
-
     logAndThrowError(
       `Error parse string at alleExamenMomentenToJs for label: ${label}, examenTypeNummer: ${examenTypeNummer}, examenNummer: ${examenNummer}: ${err}`,
       err,

@@ -67,7 +67,6 @@ describe.only('CalendarSearchParamsSchema', () => {
     }
     const x = v.safeParse(CalendarSearchParamsSchema, input)
     if (x.success) {
-      console.log('#DH# x', x.output)
       expect(x.output.meetingType).toEqual(all)
       expect(x.output.startDate).toEqual(startOfDay(new Date()))
       expect(x.output.endDate).toEqual(endOfDay(addDays(new Date(), 180)))
@@ -78,7 +77,6 @@ describe.only('CalendarSearchParamsSchema', () => {
       expect(x.output.zipCode).toEqual(0)
       expect(x.output.distance).toEqual(0)
     } else {
-      console.log('#DH# x', x)
       throw new Error('not success')
     }
   })
@@ -107,7 +105,6 @@ describe.only('CalendarSearchParamsSchema', () => {
       expect(x.output.zipCode).toEqual(0)
       expect(x.output.distance).toEqual(0)
     } else {
-      console.log('#DH# x', x)
       throw new Error('not success')
     }
   })
@@ -136,7 +133,6 @@ describe.only('CalendarSearchParamsSchema', () => {
       expect(x.output.zipCode).toEqual(0)
       expect(x.output.distance).toEqual(0)
     } else {
-      console.log('#DH# x', x)
       throw new Error('not success')
     }
   })
@@ -155,11 +151,10 @@ describe.only('CalendarSearchParamsSchema', () => {
     }
     const x = v.safeParse(CalendarSearchParamsSchema, input)
     if (x.success) {
-      console.log('#DH# x', x)
       throw new Error('success')
     }
     const issue = v.flatten<typeof CalendarSearchParamsSchema>(x.issues)
-    expect(issue.root?.at(0)).toEqual('Start date must not be after end date')
+    expect(issue.root?.at(0)).toEqual('Startdatum moet voor einddatum liggen')
   })
 
   it('should return error for invalid data type meeting', () => {
@@ -257,7 +252,6 @@ describe.only('CalendarSearchParamsSchema', () => {
       expect(x.output.distance).toEqual(0)
     } else {
       const issue = v.flatten<typeof CalendarSearchParamsSchema>(x.issues)
-      console.log('#DH# isuee', issue)
       expect(issue.root?.[0]).toEqual('')
     }
   })

@@ -294,6 +294,7 @@ export default function SearchForm({ label, data }: SearchFormProps) {
               )}
             />
           </div>
+
           {form.formState.errors && (
             <div className="text-red-500">
               {Object.keys(form.formState.errors).map((error) => (

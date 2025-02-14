@@ -63,7 +63,6 @@ export const calendarEndpoints = new Elysia({
         distance: all,
       }
       const calendarHints = await getCalendarHints(foundLabel)
-      console.log('#DH# cal', calendarHints)
 
       const startUpSettings = {
         defaultSettings,
@@ -109,15 +108,6 @@ export const calendarEndpoints = new Elysia({
       logger.info(
         `Get calendar certificates for label ${label}, foundLabel: ${foundLabel}, MeetingType ${meetingType}, startDate ${startDate}, endDate ${endDate}, certificates ${certificates}, organisation ${organisation}, locationType ${locationType}, search ${search}, zipCode ${zipCode}, distance ${distance}`,
       )
-      console.log('#DH# input meetingType', meetingType)
-      console.log('#DH# input startDate', startDate)
-      console.log('#DH# input endDate', endDate)
-      console.log('#DH# input certificates', certificates)
-      console.log('#DH# input organisation', organisation)
-      console.log('#DH# input locationType', locationType)
-      console.log('#DH# input search', search)
-      console.log('#DH# input zipCode', zipCode)
-      console.log('#DH# input distance', distance)
 
       const parsed = v.safeParse(CalendarSearchParamsSchema, {
         meetingType,
@@ -131,13 +121,11 @@ export const calendarEndpoints = new Elysia({
         distance,
       })
       if (parsed.issues) {
-        console.log('#DH# parsed', parsed.issues[0])
         return errorHandler(400, {
           code: 'VALIDATION_ERROR',
           message: parsed.issues[0].message,
         })
       }
-      console.log('#DH# paserd output', parsed.output)
 
       try {
         const exams = await getExamsForLabelAndCriteria({
@@ -154,7 +142,6 @@ export const calendarEndpoints = new Elysia({
         })
         return exams
       } catch (error) {
-        console.log('#DH# error', error)
         if (error instanceof APIError) {
           return errorHandler(error.httpCode, {
             code: 'ZIP_CODE_NOT_FOUND',
@@ -220,7 +207,6 @@ export const calendarEndpoints = new Elysia({
           })
         }
       } catch (err: unknown) {
-        console.log('#DH# err', err)
         if (hasMessageProperty(err)) {
           return errorHandler(500, {
             code: 'GENERIC_ERROR',

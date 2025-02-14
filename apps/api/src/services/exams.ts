@@ -24,19 +24,16 @@ async function getZipCodeGeoLocation(zipCode: number) {
   }
 
   const inputPostcode = +(zipCode ?? 0)
-  console.log('#DH# inputPostcode', inputPostcode)
   const postcode = await db
     .select({ geoLocation: postcodes.geoLocation })
     .from(postcodes)
     .where(eq(postcodes.postcode, inputPostcode))
 
   if (postcode.length === 0) {
-    console.log('#DH# zipCode not found')
     throw new APIError(400, 'Zip code not found')
   }
 
   geoLocation = postcode.at(0)?.geoLocation ?? { x: 0, y: 0 }
-  console.log('#DH# geo', geoLocation)
   return geoLocation
 }
 
@@ -53,7 +50,6 @@ export async function getExamsForLabelAndCriteria(inputData: {
   distance: number
 }) {
   const showDistance = inputData.zipCode !== 0
-  console.log('#DH# showDistance', showDistance)
 
   const geoLocation = await getZipCodeGeoLocation(inputData.zipCode)
 

@@ -1,4 +1,4 @@
-import { Alert } from "@repo/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@repo/ui/alert";
 import {
   toDutchDate,
   toDutchDateTime,
@@ -53,8 +53,11 @@ export function ExamDetails({ params, label }: DetailsComponentProps) {
 
         {isError && (
           <Alert variant={"destructive"}>
-            Er is iets mis gegaan bij het laden van de gegevens. Probeer het
-            later opnieuw.
+            <AlertTitle>Er is iets mis gegaan</AlertTitle>
+            <AlertDescription>
+              Er is iets mis gegaan bij het laden van de gegevens. Probeer het
+              later opnieuw.
+            </AlertDescription>
           </Alert>
         )}
         {exam && (

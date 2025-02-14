@@ -70,13 +70,24 @@ export default function Results({ label, certificateTypes }: ResultsProps) {
               </AlertDescription>
             </>
           )}
+          {error.code === "VALIDATION_ERROR" && (
+            <>
+              <CircleAlertIcon />
+              <AlertTitle>Er is iets misgegaan</AlertTitle>
+              <AlertDescription>{error.message}</AlertDescription>
+            </>
+          )}
         </Alert>
       );
     }
     return (
       <Alert variant={"destructive"}>
-        Er is iets mis gegaan bij het laden van de gegevens. Probeer het later
-        opnieuw.
+        <CircleAlertIcon />
+        <AlertTitle>Er is iets mis gegaan</AlertTitle>
+        <AlertDescription>
+          Er is iets mis gegaan bij het laden van de gegevens. Probeer het later
+          opnieuw.
+        </AlertDescription>
       </Alert>
     );
   }

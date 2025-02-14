@@ -35,7 +35,6 @@ export const CalendarSearchParamsSchema = v.pipe(
     startDate: v.pipe(
       TransformInputToStringSchema,
       v.transform((input: string) => {
-        // console.log('#DH# input', input)
         if (input === '') {
           return startOfDay(new Date())
         } else {
@@ -69,10 +68,8 @@ export const CalendarSearchParamsSchema = v.pipe(
         if (input === '') {
           return 0
         }
-        const match = input.match(/^[1-9]\d{3}/) //?
-        console.log('#DH# ', input, match?.at(0))
+        const match = input.match(/^[1-9]\d{3}/)
         const res = match ? parseInt(`${match.at(0)}`, 10) : 0
-        console.log('#DH# res', res)
         return res
       }),
     ),
@@ -86,7 +83,7 @@ export const CalendarSearchParamsSchema = v.pipe(
       return false
     }
     return true
-  }, 'Start date must not be after end date'),
+  }, 'Startdatum moet voor einddatum liggen'),
 )
 
 export type CalendarSearchParams = v.InferOutput<
