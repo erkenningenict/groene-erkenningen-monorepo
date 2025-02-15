@@ -1,7 +1,7 @@
-module.exports = function (wallaby) {
+export default function (wallaby) {
   return {
     autoDetect: ['vitest'],
-    files: ['src/services/*.ts'],
+    // files: ['src/services/*.ts'],
 
     // tests: ['test/**/*.test.ts'],
   }

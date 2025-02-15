@@ -254,3 +254,7 @@ export const getLabel = (label: string) => {
   }
   throw new Error(`Label ${label} not found in labelMap`)
 }
+
+export const corsMatcher = (origin: string, allowedOrigins: string[]) => {
+  return allowedOrigins.some(regex => new RegExp(regex).test(origin))
+}

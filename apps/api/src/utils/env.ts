@@ -60,7 +60,9 @@ function envParser() {
   if (!result.success) {
     const issues = v.flatten(result.issues)
     console.error('Error parsing env variables', issues)
-    process.exit(1)
+    // TODO DH
+    console.log('#DH# Error parsing env variables', process.env)
+    // process.exit(1)
   }
   return v.parse(EnvSchema, process.env)
 }

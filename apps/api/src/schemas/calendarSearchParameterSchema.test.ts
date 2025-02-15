@@ -8,7 +8,7 @@ import * as v from 'valibot'
 import { all, nrOfDaysToFetch } from '../services/constants'
 import { addDays, endOfDay, format, startOfDay } from 'date-fns'
 
-describe.only('CalendarSearchParamsSchema', () => {
+describe('CalendarSearchParamsSchema', () => {
   it('should return empty array for certificate empty string value', () => {
     const input = ''
     const x = v.safeParse(CertificatesSchema, input)
