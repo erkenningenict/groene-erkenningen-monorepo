@@ -5,7 +5,7 @@ ACCESS-CONTROL-ALLOW-ORIGIN = "*"
 [build]
 publish = "dist"
 command = "bun run build:netlify"
-#ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- apps/public-register/ packages/ui/"
+ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- apps/public-register/ packages/ui/"
 [context.production.environment]
 NODE_ENV = "production"
 [context.acceptance.environment]
