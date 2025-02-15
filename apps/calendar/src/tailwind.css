@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.test {
-  outline: red 1px solid;
-}
-
 @layer base {
   :host {
     --background: 0 0% 100%;
