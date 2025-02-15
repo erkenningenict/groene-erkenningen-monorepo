@@ -8,6 +8,7 @@ import db from './src/db/db'
 import { publicRegisterEndpoints } from './src/endpoints/publicRegisterEndpoints'
 import cors from '@elysiajs/cors'
 import { calendarEndpoints } from './src/endpoints/calendar'
+import { corsMatcher } from './src/utils/utils'
 
 const app = new Elysia()
   .use(
@@ -15,7 +16,7 @@ const app = new Elysia()
       origin: ({ headers }) => {
         const origin = headers.get('origin')
 
-        return env.ALLOWED_ORIGINS.includes(origin ?? '')
+        return corsMatcher(origin ?? '', env.ALLOWED_ORIGINS)
       },
       methods: ['GET', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],

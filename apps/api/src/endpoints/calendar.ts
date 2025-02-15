@@ -1,16 +1,22 @@
-import { Elysia, t } from 'elysia'
-import type { LabelTypes } from '../services/labelConfiguration.js'
-import { getLabel } from '../utils/utils.js'
-import logger from '../utils/logger.js'
-import { getCertificatesOfExams } from '../services/certificates.js'
-import { getOrganisationOfLabel } from '../services/organisations.js'
-import { all, MeetingTypesEnum } from '../services/constants'
-import * as v from 'valibot'
-import { CalendarStartUpSettingsSchema } from '../services/calendarStartUpSettingsSchema'
 import { addDays, format } from 'date-fns'
-import { getExamsForLabelAndCriteria } from '../services/exams.js'
-import { CalendarSearchSchema } from '../services/query-params-validation.js'
+import { Elysia, t } from 'elysia'
+import * as v from 'valibot'
 import { APIError } from '../errors/apiError.js'
+import { CalendarSearchParamsSchema } from '../schemas/calendarSearchParameterSchema.js'
+import { CalendarStartUpSettingsSchema } from '../services/calendarStartUpSettingsSchema'
+import { getCertificatesOfExams } from '../services/certificates.js'
+import { getCalendarHints } from '../services/config.js'
+import { all, MeetingTypesEnum, nrOfDaysToFetch } from '../services/constants'
+import { getExamsForLabelAndCriteria } from '../services/exams.js'
+import type { LabelTypes } from '../services/labelConfiguration.js'
+import { getOrganisationOfLabel } from '../services/organisations.js'
+import logger from '../utils/logger.js'
+import { getLabel } from '../utils/utils.js'
+import { losExamenMoment } from '../services/los-examen-moment.js'
+import db from '../db/db.js'
+import { eq } from 'drizzle-orm'
+import { config as configDb } from '../db/schema.js'
+import { SingleExamSchema } from '../schemas/singleExamSchema.js'
 
 const getCertificateName = (certificate: string | null) => {
   switch (certificate) {
@@ -34,42 +40,53 @@ const getCertificateName = (certificate: string | null) => {
 export const calendarEndpoints = new Elysia({
   prefix: 'calendar',
 })
-  .get('/settings/:label', async ({ params: { label } }) => {
-    const foundLabel = getLabel(label)
-    logger.info(
-      `Get calendar certificates for label ${label}, foundLabel: ${foundLabel}`,
-    )
-    const certificates = await getCertificatesOfExams(foundLabel)
-    const organisations = await getOrganisationOfLabel(
-      getLabel(label) as LabelTypes,
-    )
-    const defaultSettings = {
-      meetingType: MeetingTypesEnum.Alle,
-      startDate: format(new Date(), 'yyyy-MM-dd'),
-      endDate: format(addDays(new Date(), 180), 'yyyy-MM-dd'),
-      certificate: all,
-      organisation: all,
-      locationType: all,
-      search: '',
-      zipCode: '',
-      distance: all,
-    }
+  .get(
+    '/settings/:label',
+    async ({ params: { label }, error: errorHandler }) => {
+      const foundLabel = getLabel(label)
+      logger.info(
+        `Get calendar certificates for label ${label}, foundLabel: ${foundLabel}`,
+      )
+      const certificates = await getCertificatesOfExams(foundLabel)
+      const organisations = await getOrganisationOfLabel(
+        getLabel(label) as LabelTypes,
+      )
+      const defaultSettings = {
+        meetingType: MeetingTypesEnum['[Alle]'],
+        startDate: format(new Date(), 'yyyy-MM-dd'),
+        endDate: format(addDays(new Date(), nrOfDaysToFetch), 'yyyy-MM-dd'),
+        certificates: [],
+        organisation: all,
+        locationType: all,
+        search: '',
+        zipCode: '',
+        distance: all,
+      }
+      const calendarHints = await getCalendarHints(foundLabel)
 
-    const startUpSettings = {
-      defaultSettings,
-      certificates: certificates
-        .filter(c => c.certificate)
-        .map(certificate => ({
-          label: getCertificateName(certificate.certificate),
-          value: certificate.certificate,
-        })),
-      organisations: organisations.map(({ organisation }) => organisation),
-    }
-    const parsed = v.safeParse(CalendarStartUpSettingsSchema, startUpSettings)
-    console.log('#DH# parsedl', parsed.issues?.[0])
-
-    return parsed.output
-  })
+      const startUpSettings = {
+        defaultSettings,
+        certificates: certificates
+          .filter(c => c.certificate)
+          .map(certificate => ({
+            label: getCertificateName(certificate.certificate),
+            value: certificate.certificate,
+          })),
+        organisations: organisations.map(({ organisation }) => organisation),
+        calendarHints,
+      }
+      const parsed = v.safeParse(CalendarStartUpSettingsSchema, startUpSettings)
+      if (parsed.success) {
+        return parsed.output
+      } else {
+        logger.error('Error get settings', parsed.issues)
+        return errorHandler(500, {
+          code: 'VALIDATION_ERROR',
+          message: parsed.issues[0].message,
+        })
+      }
+    },
+  )
   .get(
     '/calendar/:label',
     async ({
@@ -78,7 +95,7 @@ export const calendarEndpoints = new Elysia({
         meetingType,
         startDate,
         endDate,
-        certificate,
+        certificates,
         organisation,
         locationType,
         search,
@@ -89,26 +106,37 @@ export const calendarEndpoints = new Elysia({
     }) => {
       const foundLabel = getLabel(label)
       logger.info(
-        `Get calendar certificates for label ${label}, foundLabel: ${foundLabel}, MeetingType ${meetingType}, startDate ${startDate}, endDate ${endDate}, certificate ${certificate}, organisation ${organisation}, locationType ${locationType}, search ${search}, zipCode ${zipCode}, distance ${distance}`,
+        `Get calendar certificates for label ${label}, foundLabel: ${foundLabel}, MeetingType ${meetingType}, startDate ${startDate}, endDate ${endDate}, certificates ${certificates}, organisation ${organisation}, locationType ${locationType}, search ${search}, zipCode ${zipCode}, distance ${distance}`,
       )
 
-      const parsed = v.safeParse(CalendarSearchSchema, { zipCode, distance })
+      const parsed = v.safeParse(CalendarSearchParamsSchema, {
+        meetingType,
+        startDate,
+        endDate,
+        certificates,
+        organisation,
+        locationType,
+        search,
+        zipCode,
+        distance,
+      })
       if (parsed.issues) {
-        console.log('#DH# parsed', parsed.issues[0])
-        throw new Error(parsed.issues[0].message)
+        return errorHandler(400, {
+          code: 'VALIDATION_ERROR',
+          message: parsed.issues[0].message,
+        })
       }
-      console.log('#DH# paserd output', parsed.output)
 
       try {
         const exams = await getExamsForLabelAndCriteria({
           label: foundLabel,
-          meetingType,
-          startDate,
-          endDate,
-          certificate,
-          organisation,
-          locationType,
-          search,
+          meetingType: parsed.output.meetingType,
+          startDate: parsed.output.startDate,
+          endDate: parsed.output.endDate,
+          certificates: parsed.output.certificates,
+          organisation: parsed.output.organisation,
+          locationType: parsed.output.locationType,
+          search: parsed.output.search,
           zipCode: parsed.output.zipCode,
           distance: parsed.output.distance,
         })
@@ -133,7 +161,7 @@ export const calendarEndpoints = new Elysia({
         meetingType: t.Optional(t.String()),
         startDate: t.Optional(t.String()),
         endDate: t.Optional(t.String()),
-        certificate: t.Optional(t.String()),
+        certificates: t.Optional(t.Union([t.String(), t.Array(t.String())])),
         organisation: t.Optional(t.String()),
         locationType: t.Optional(t.String()),
         search: t.Optional(t.String()),
@@ -142,3 +170,66 @@ export const calendarEndpoints = new Elysia({
       }),
     },
   )
+  .get(
+    '/examenTypeNummer/:examenTypeNummer/examenNummer/:examenNummer/label/:label',
+    async ({
+      params: { label, examenTypeNummer, examenNummer },
+      error: errorHandler,
+    }) => {
+      const foundLabel = getLabel(label)
+      logger.info(
+        `Get single exam for label ${label}, foundLabel: ${foundLabel}`,
+      )
+      const config = await db.query.config.findFirst({
+        where: eq(configDb.label, foundLabel),
+      })
+      if (!config) {
+        return errorHandler(400, {
+          code: 'VALIDATION_ERROR',
+          message: 'Label niet gevonden',
+        })
+      }
+      try {
+        const exam = await losExamenMoment({
+          config,
+          examenTypeNummer,
+          examenNummer,
+        })
+
+        const parsed = v.safeParse(SingleExamSchema, exam)
+        if (parsed.success) {
+          return parsed.output
+        } else {
+          logger.error('Error get single exam', parsed.issues)
+          return errorHandler(500, {
+            code: 'VALIDATION_ERROR',
+            message: parsed.issues[0].message,
+          })
+        }
+      } catch (err: unknown) {
+        if (hasMessageProperty(err)) {
+          return errorHandler(500, {
+            code: 'GENERIC_ERROR',
+            message: err.message,
+          })
+        } else {
+          return errorHandler(500, {
+            code: 'GENERIC_ERROR',
+            message: err,
+          })
+        }
+      }
+    },
+    {
+      params: t.Object({
+        label: t.String(),
+        examenTypeNummer: t.Number(),
+        examenNummer: t.Number(),
+      }),
+    },
+  )
+export type ErrorResponse = { message: string }
+
+export function hasMessageProperty(error: unknown): error is ErrorResponse {
+  return typeof error === 'object' && error !== null && 'message' in error
+}

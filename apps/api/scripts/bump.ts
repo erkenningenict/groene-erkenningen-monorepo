@@ -26,7 +26,7 @@ await $`git commit -m v${json.version}`
 // await $`git push origin v${json.version}`;
 
 function bump(semver: [number, number, number], semverPart = 'patch') {
-  console.log('#DH# sem ', semverPart)
+  console.log('Sem ver part: ', semverPart)
   switch (semverPart) {
     case 'major':
       semver[0]++

@@ -19,6 +19,7 @@ export const config = pgTable('config', {
   organisationCode: text('organisation_code').notNull(),
   enabled: boolean('enabled').notNull().default(true),
   certificateTypeConfiguration: json('certificate_type_configuration'),
+  calendarHints: json('calendar_hints'),
   createdAt: timestamp('created_at').notNull().defaultNow(),
   updatedAt: timestamp('updated_at').notNull().defaultNow(),
 })

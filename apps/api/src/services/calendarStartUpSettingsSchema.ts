@@ -10,16 +10,20 @@ export const CalendarStartUpSettingsSchema = v.object({
   ),
   organisations: v.array(v.string()),
   defaultSettings: v.object({
-    meetingType: v.optional(v.enum(MeetingTypesEnum), MeetingTypesEnum.Alle),
+    meetingType: v.optional(
+      v.enum(MeetingTypesEnum),
+      MeetingTypesEnum['[Alle]'],
+    ),
     startDate: v.string(),
     endDate: v.string(),
-    certificate: v.string(),
+    certificates: v.array(v.string()),
     organisation: v.string(),
     locationType: v.string(),
     search: v.string(),
     zipCode: v.string(),
     distance: v.string(),
   }),
+  // calendarHints: v.optional(v.unknown()),
 })
 
 export type CalendarStartUpSettings = v.InferOutput<

@@ -17,13 +17,13 @@
     "ui": "bun --filter @repo/ui ui"
   },
   "devDependencies": {
-    "@prettier/plugin-php": "^0.22.2",
-    "prettier": "^3.4.2",
-    "turbo": "^2.3.3"
+    "@prettier/plugin-php": "0.22.4",
+    "prettier": "3.4.2",
+    "turbo": "2.4.0"
   },
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "bun@1.1.41",
+  "packageManager": "bun@1.2.2",
   "dependencies": {}
 }

@@ -1,0 +1,1 @@
+ALTER TABLE "config" ADD COLUMN "calendar_hints" json;

@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import * as v from "valibot";
 import Students from "./Students";
 import type { SearchValues } from "./types";
-import useFetch from "@repo/ui/hooks/useFetch";
+import useFetch from "./useFetch";
 import type { Student } from "../../api/src/services/check-certificaat.server";
 import StudentSkeletons from "./StudentSkeleton";
 

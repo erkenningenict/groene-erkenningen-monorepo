@@ -11,4 +11,4 @@ const output = input
   .join("\n");
 
 const sql = `${output}`;
-console.log("#DH# sql", sql);
+console.log("sql", sql);

@@ -10,7 +10,7 @@ export const connection = postgres(env.DB_URL, {
 
 export const db = drizzle(connection, {
   schema,
-  logger: env.LOG_LEVEL === 'debug',
+  logger: env.LOG_LEVEL === 'warning',
 })
 
 export type db = typeof db
