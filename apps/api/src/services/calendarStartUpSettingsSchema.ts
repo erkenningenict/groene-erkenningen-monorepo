@@ -23,7 +23,7 @@ export const CalendarStartUpSettingsSchema = v.object({
     zipCode: v.string(),
     distance: v.string(),
   }),
-  // calendarHints: v.optional(v.unknown()),
+  calendarHints: v.optional(v.unknown()),
 })
 
 export type CalendarStartUpSettings = v.InferOutput<
