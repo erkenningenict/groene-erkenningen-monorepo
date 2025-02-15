@@ -71,7 +71,6 @@
   }
 }
 
-/* Define custom fonts here, and also specify in entry.server.tsx */
 @font-face {
   font-family: Dosis;
   src: url("/fonts/Dosis/Dosis-VariableFont_wght.ttf");
@@ -89,8 +88,5 @@
 @layer base {
   * {
     @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }
