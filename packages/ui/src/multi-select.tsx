@@ -24,7 +24,8 @@ import { cn } from "./lib/utils";
 const multiSelectVariants = cva("", {
   variants: {
     variant: {
-      default: "border-foreground text-foreground bg-card hover:bg-card/80",
+      default:
+        "bg-background border-foreground text-foreground bg-card hover:bg-card/80",
       secondary:
         "border-foreground/10 bg-secondary text-secondary-foreground hover:bg-secondary/80",
       destructive:
@@ -213,7 +214,7 @@ export const MultiSelect = React.forwardRef<
             {...props}
             onClick={handleTogglePopover}
             className={cn(
-              "flex w-full rounded-md border border-slate-200 min-h-10 h-auto items-center justify-between bg-inherit hover:bg-inherit [&_svg]:pointer-events-auto px-3 pr-2",
+              "flex w-full rounded-md bg-background border border-input min-h-10 h-auto items-center justify-between hover:bg-inherit [&_svg]:pointer-events-auto px-3 pr-2",
               className,
             )}
           >
@@ -286,11 +287,11 @@ export const MultiSelect = React.forwardRef<
                 </div>
               </div>
             ) : (
-              <div className="flex items-center justify-between w-full mx-auto">
-                <span className="text-sm text-muted-foreground">
+              <div className="flex items-center justify-between w-full mx-auto bg-inherit">
+                <span className="text-sm text-foreground bg-inherit">
                   {placeholder}
                 </span>
-                <ChevronDown className="h-4 cursor-pointer text-muted-foreground mx-1" />
+                <ChevronDown className="h-4 cursor-pointer text-muted-foreground bg-inherit mx-1" />
               </div>
             )}
           </Button>
