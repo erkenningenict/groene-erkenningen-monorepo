@@ -120,6 +120,7 @@ export const calendarEndpoints = new Elysia({
         zipCode,
         distance,
       })
+
       if (parsed.issues) {
         return errorHandler(400, {
           code: 'VALIDATION_ERROR',

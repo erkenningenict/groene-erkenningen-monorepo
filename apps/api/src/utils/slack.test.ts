@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test'
+import { describe, expect, it } from 'vitest'
 import { sendSlackErrorMessage } from './slack'
 
 // Skipping because it actually calls the slack api

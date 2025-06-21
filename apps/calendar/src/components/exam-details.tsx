@@ -5,7 +5,7 @@ import {
   toDutchTime,
 } from "../../../api/src/utils/dateTimeUtils";
 import { format, isSameDay, startOfDay } from "date-fns";
-import { ChevronRight } from "lucide-react";
+import { AlertCircleIcon, ChevronRight } from "lucide-react";
 import { Skeleton } from "@repo/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@repo/ui/button";
@@ -118,6 +118,18 @@ export function ExamDetails({ params, label }: DetailsComponentProps) {
               </p>
               <div className="text-lg md:text-xl md:mt-2">
                 Prijs: <span className="font-bold">{exam?.prijs} </span>
+              </div>
+              <div className="text-lg md:text-xl md:mt-2">
+                Examentype nummer:{" "}
+                <span className="font-bold">{params.examenTypeNummer} </span>
+                <Alert variant={"warning"} className="p-2">
+                  <AlertCircleIcon />
+                  <AlertTitle>Let op!</AlertTitle>
+                  <AlertDescription className="text-black">
+                    U kunt slechts 1x een bijeenkomst van dit examentype nummer
+                    volgen!
+                  </AlertDescription>
+                </Alert>
               </div>
             </div>
 

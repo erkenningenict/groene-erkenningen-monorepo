@@ -40,3 +40,4 @@ export const CalendarSearchSchema = v.pipe(
   ),
 );
 export type CalendarSearch = v.InferOutput<typeof CalendarSearchSchema>;
+export type CalendarSearchInput = v.InferInput<typeof CalendarSearchSchema>;

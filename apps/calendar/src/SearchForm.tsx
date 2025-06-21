@@ -17,7 +17,7 @@ import Results from "./Results";
 import { useSearchParams } from "react-router";
 import {
   CalendarSearchSchema,
-  type CalendarSearch,
+  type CalendarSearchInput,
 } from "./schemas/calendarSearchSchema";
 import { MultiSelect } from "@repo/ui/multi-select";
 import { useState } from "react";
@@ -32,29 +32,38 @@ export default function SearchForm({ label, data }: SearchFormProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
-  const form = useForm<CalendarSearch>({
+  const form = useForm<CalendarSearchInput>({
     resolver: valibotResolver(CalendarSearchSchema),
-    values: {
+    defaultValues: {
       meetingType:
         (searchParams.get("meetingType") as MeetingTypesEnum) ??
-        (data?.defaultSettings.meetingType as MeetingTypesEnum),
+        data?.defaultSettings.meetingType ??
+        MeetingTypes[0].value,
       startDate:
-        searchParams.get("startDate") ?? data?.defaultSettings.startDate,
-      endDate: searchParams.get("endDate") ?? data?.defaultSettings.endDate,
+        searchParams.get("startDate") ?? data?.defaultSettings.startDate ?? "",
+      endDate:
+        searchParams.get("endDate") ?? data?.defaultSettings.endDate ?? "",
       certificates:
         searchParams.getAll("certificates") ??
-        data?.defaultSettings.certificates,
+        data?.defaultSettings.certificates ??
+        [],
       organisation:
-        searchParams.get("organisation") ?? data?.defaultSettings.organisation,
+        searchParams.get("organisation") ??
+        data?.defaultSettings.organisation ??
+        all,
       locationType:
-        searchParams.get("locationType") ?? data?.defaultSettings.locationType,
-      search: searchParams.get("search") ?? data?.defaultSettings.search,
-      zipCode: searchParams.get("zipCode") ?? data?.defaultSettings.zipCode,
-      distance: searchParams.get("distance") ?? data?.defaultSettings.distance,
+        searchParams.get("locationType") ??
+        data?.defaultSettings.locationType ??
+        "[Alle]",
+      search: searchParams.get("search") ?? data?.defaultSettings.search ?? "",
+      zipCode:
+        searchParams.get("zipCode") ?? data?.defaultSettings.zipCode ?? "",
+      distance:
+        searchParams.get("distance") ?? data?.defaultSettings.distance ?? all,
     },
   });
 
-  function onSubmit(values: CalendarSearch) {
+  function onSubmit(values: CalendarSearchInput) {
     setSearchParams(values);
   }
 
