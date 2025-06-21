@@ -35,6 +35,9 @@ export const sendSlackErrorMessage = async ({
   message: string
   error: any
 }): Promise<void> => {
+  if (!env.SLACK_LOGGING_ENABLED) {
+    return Promise.resolve()
+  }
   return sendSlackMessage(
     channel,
     `${message}: ${JSON.stringify(error, Object.getOwnPropertyNames(error))}`,

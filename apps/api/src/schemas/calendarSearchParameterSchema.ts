@@ -39,7 +39,7 @@ export const CalendarSearchParamsSchema = v.pipe(
           return startOfDay(new Date())
         } else {
           const date = startOfDay(new Date(input))
-          if (date >= startOfDay(new Date())) {
+          if (date <= startOfDay(new Date())) {
             return startOfDay(new Date())
           }
           return date

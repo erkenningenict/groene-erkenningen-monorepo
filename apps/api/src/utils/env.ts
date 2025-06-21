@@ -34,6 +34,7 @@ const EnvSchema = v.object({
   API_KEY_FETCHER: v.string(),
   LOGGING_ENABLED: stringBoolean,
   LOG_LEVEL: v.optional(v.enum(LogLevels), LogLevels.info),
+  SLACK_LOGGING_ENABLED: stringBoolean,
   SLACK_API_URL: v.pipe(v.string(), v.url()),
   SLACK_TOKEN: v.string(),
   CRON_EXAMENMOMENTEN_ENABLED: stringBoolean,
@@ -58,12 +59,13 @@ function envParser() {
   const envParser = v.safeParser(EnvSchema)
   const result = envParser(process.env)
   if (!result.success) {
-    const issues = v.flatten(result.issues)
+    const issues = v.summarize(result.issues)
     console.error('Error parsing env variables', issues)
     // TODO DH
     console.log('#DH# Error parsing env variables', process.env)
     // process.exit(1)
   }
+  console.log('#DH# ', process.env)
   return v.parse(EnvSchema, process.env)
 }
 

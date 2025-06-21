@@ -17,7 +17,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as v from "valibot";
 import Students from "./Students";
-import type { SearchValues } from "./types";
 import useFetch from "./useFetch";
 import type { Student } from "../../api/src/services/check-certificaat.server";
 import StudentSkeletons from "./StudentSkeleton";
@@ -33,6 +32,7 @@ const formSchema = v.object({
     v.minLength(1, "Selecteer een certificaat"),
   ),
 });
+type FormValues = v.InferInput<typeof formSchema>;
 
 type SearchFormProps = {
   label: string;
@@ -47,19 +47,19 @@ export default function SearchForm({
   isLoadingCertificates,
   isErrorCertificates,
 }: SearchFormProps) {
-  const form = useForm<v.InferOutput<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: valibotResolver(formSchema),
     defaultValues: {
       search: "",
       certificate: "",
     },
   });
-  const [searchValues, setSearchValues] = useState<SearchValues>({
+  const [searchValues, setSearchValues] = useState<FormValues>({
     search: "",
     certificate: "",
   });
 
-  function onSubmit(values: v.InferOutput<typeof formSchema>) {
+  function onSubmit(values: FormValues) {
     setSearchValues(values);
   }
 

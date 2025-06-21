@@ -124,7 +124,7 @@ describe('CalendarSearchParamsSchema', () => {
     const x = v.safeParse(CalendarSearchParamsSchema, input)
     if (x.success) {
       expect(x.output.meetingType).toEqual(all)
-      expect(x.output.startDate).toEqual(startOfDay(new Date(input.startDate)))
+      expect(x.output.startDate).toEqual(startOfDay(new Date()))
       expect(x.output.endDate).toEqual(endOfDay(new Date(input.endDate)))
       expect(x.output.certificates).toEqual([])
       expect(x.output.organisation).toEqual(all)
