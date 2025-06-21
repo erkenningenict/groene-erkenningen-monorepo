@@ -1,4 +1,3 @@
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Button } from "@repo/ui/button";
 import {
   DialogClose,
@@ -58,9 +57,7 @@ export function Details({
   return (
     <DialogContent container={container}>
       <DialogHeader>
-        <VisuallyHidden>
-          <DialogTitle>Details</DialogTitle>
-        </VisuallyHidden>
+        <DialogTitle>Details</DialogTitle>
       </DialogHeader>
       <ExamDetails label={label} params={selectedExam} />
 

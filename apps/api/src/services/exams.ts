@@ -52,7 +52,6 @@ export async function getExamsForLabelAndCriteria(inputData: {
   const showDistance = inputData.zipCode !== 0
 
   const geoLocation = await getZipCodeGeoLocation(inputData.zipCode)
-  console.log('#DH# start date', inputData.startDate)
 
   const examMoments = await db
     .select({

@@ -61,11 +61,8 @@ function envParser() {
   if (!result.success) {
     const issues = v.summarize(result.issues)
     console.error('Error parsing env variables', issues)
-    // TODO DH
-    console.log('#DH# Error parsing env variables', process.env)
     // process.exit(1)
   }
-  console.log('#DH# ', process.env)
   return v.parse(EnvSchema, process.env)
 }
 
