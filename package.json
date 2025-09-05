@@ -12,6 +12,7 @@
     "dev:api": "cd apps/api && bun --watch index.tsx",
     "dev:pr": "cd apps/public-register && bun dev",
     "dev:cal": "cd apps/calendar && bun dev",
+    "test:api": "cd apps/api && bun run test",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "ui": "bun --filter @repo/ui ui"

@@ -97,6 +97,27 @@ Start calendar
 `cd apps/calendar`
 `br dev`
 
+## Test projects
+
+### CLI
+
+From the root of the monorepo:
+`br test:api`
+
+### Using the Bun for Visual Studio extension
+
+Run a test using the inline controls of the test file.
+
+## Deploy API
+
+- Commit work
+- Go to the API directory: `cd apps/api`
+- Run the correct command: `br release:[patch|minor|major]`
+  This generates a docker image based that is uploaded to the registry at `https://portainer.erkenningen.nl/`
+- Go to the `examenservices-fetcher-[acc|prd]` container and replace it by setting the correct version number that is written in the console during the previous command.
+  It is good practice to first test the container in the acc environment.
+
+
 ## ShadCN library
 
 See for usage:
