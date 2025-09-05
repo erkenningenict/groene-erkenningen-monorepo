@@ -38,7 +38,7 @@ To build all apps and packages, run the following command:
 
 ```
 cd my-turborepo
-pnpm build
+bun build
 ```
 
 ### Develop
@@ -47,7 +47,7 @@ To develop all apps and packages, run the following command:
 
 ```
 cd my-turborepo
-pnpm dev
+bun dev
 ```
 
 ### Remote Caching
@@ -79,6 +79,43 @@ Learn more about the power of Turborepo:
 - [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
 - [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
 - [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+
+
+## Start projects
+
+(br = bun run alias)
+
+Start API:
+`cd apps/api`
+`br dev`
+
+Start public register
+`cd apps/public-register`
+`br dev`
+
+Start calendar
+`cd apps/calendar`
+`br dev`
+
+## Test projects
+
+### CLI
+
+From the root of the monorepo:
+`br test:api`
+
+### Using the Bun for Visual Studio extension
+
+Run a test using the inline controls of the test file.
+
+## Deploy API
+
+- Commit work
+- Go to the API directory: `cd apps/api`
+- Run the correct command: `br release:[patch|minor|major]`
+  This generates a docker image based that is uploaded to the registry at `https://portainer.erkenningen.nl/`
+- Go to the `examenservices-fetcher-[acc|prd]` container and replace it by setting the correct version number that is written in the console during the previous command.
+  It is good practice to first test the container in the acc environment.
 
 
 ## ShadCN library

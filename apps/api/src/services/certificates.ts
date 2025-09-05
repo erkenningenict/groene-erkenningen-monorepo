@@ -7,6 +7,7 @@ export async function getCertificatesForLabel(label: string) {
     .select({ certificate: certificatesPerLabel.certificate })
     .from(certificatesPerLabel)
     .where(eq(certificatesPerLabel.label, label))
+    .orderBy(certificatesPerLabel.certificate)
 }
 
 export async function getCertificatesOfExams(label: string) {

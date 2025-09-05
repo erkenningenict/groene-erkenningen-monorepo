@@ -6,7 +6,8 @@ type CertificatesProps = {
 };
 
 export default function Certificates({ label }: CertificatesProps) {
-  const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
+  const apiBaseUrl =
+    import.meta.env.VITE_APP_API_URL || "http://localhost:3000";
 
   const {
     data: certificates,

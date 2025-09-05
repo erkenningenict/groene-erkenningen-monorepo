@@ -110,10 +110,13 @@ describe('CalendarSearchParamsSchema', () => {
   })
 
   it('should return start of today when date is in the past', () => {
+    // Use a dynamic future date (1 year from now) to ensure the test keeps working
+    const futureEndDate = format(addDays(new Date(), 365), 'yyyy-MM-dd')
+
     const input = {
       meetingType: all,
       startDate: '2020-01-01',
-      endDate: '2025-07-10',
+      endDate: futureEndDate,
       certificates: '',
       organisation: all,
       locationType: all,

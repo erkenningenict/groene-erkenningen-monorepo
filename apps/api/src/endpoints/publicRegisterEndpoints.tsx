@@ -23,11 +23,12 @@ export const publicRegisterEndpoints = new Elysia({
     '/certificates/:label/:certificate/:search',
     async ({ params: { label, certificate, search } }) => {
       const foundLabel = getLabel(label)
+      const searchValue = decodeURIComponent(search.trim())
       logger.info(
-        `Get students for label ${label}, foundLabel: ${foundLabel}, certificate: ${certificate}, search: ${search}`,
+        `Get students for label ${label}, foundLabel: ${foundLabel}, certificate: ${certificate}, search: ${searchValue}`,
       )
       return await checkCertificate(
-        search,
+        searchValue,
         certificate,
         getLabel(label) as LabelTypes,
       )
