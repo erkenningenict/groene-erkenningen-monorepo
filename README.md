@@ -38,7 +38,7 @@ To build all apps and packages, run the following command:
 
 ```
 cd my-turborepo
-pnpm build
+bun build
 ```
 
 ### Develop
@@ -47,7 +47,7 @@ To develop all apps and packages, run the following command:
 
 ```
 cd my-turborepo
-pnpm dev
+bun dev
 ```
 
 ### Remote Caching
@@ -80,6 +80,22 @@ Learn more about the power of Turborepo:
 - [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
 - [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
 
+
+## Start projects
+
+(br = bun run alias)
+
+Start API:
+`cd apps/api`
+`br dev`
+
+Start public register
+`cd apps/public-register`
+`br dev`
+
+Start calendar
+`cd apps/calendar`
+`br dev`
 
 ## ShadCN library
 
