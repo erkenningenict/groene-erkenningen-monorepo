@@ -202,7 +202,6 @@ export const getExamenMomentenDateArrayResult = <InputType>(
   value: InputType,
   index: number,
 ) => {
-  console.log('#DH# value', value)
   if (Array.isArray(value)) {
     const val = value.at(index)
 
