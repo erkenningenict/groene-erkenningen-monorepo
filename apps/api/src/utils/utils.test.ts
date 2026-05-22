@@ -1,5 +1,9 @@
-import { describe, expect, it } from 'bun:test'
-import { corsMatcher, getBasicAuth } from './utils'
+import { describe, expect, it } from 'vitest'
+import {
+  corsMatcher,
+  getBasicAuth,
+  getExamenMomentenDateArrayResult,
+} from './utils'
 
 describe('getBasicAuth()', () => {
   it('should return correct', () => {
@@ -43,5 +47,44 @@ describe('corsMatcher()', () => {
       corsExamples,
     )
     expect(res).toBe(true)
+  })
+})
+
+describe('getExamenMomentenDateArrayResult()', () => {
+  it('should return correct date for a single date', () => {
+    const res = getExamenMomentenDateArrayResult(
+      {
+        $: {
+          xmlns: 'http://schemas.datacontract.org/2004/07/System',
+        },
+        DateTime: '2026-06-02T11:00:00Z',
+        OffsetMinutes: '0',
+      },
+      0,
+    )
+    expect(res).toBe('2026-06-02T11:00:00Z')
+  })
+
+  it('should return correct date for a single date with array', () => {
+    const res = getExamenMomentenDateArrayResult(
+      [
+        {
+          $: {
+            xmlns: 'http://schemas.datacontract.org/2004/07/System',
+          },
+          DateTime: '2026-06-02T11:00:00Z',
+          OffsetMinutes: '0',
+        },
+        {
+          $: {
+            xmlns: 'http://schemas.datacontract.org/2004/07/System',
+          },
+          DateTime: '2026-06-03T11:00:00Z',
+          OffsetMinutes: '0',
+        },
+      ],
+      1,
+    )
+    expect(res).toBe('2026-06-03T11:00:00Z')
   })
 })

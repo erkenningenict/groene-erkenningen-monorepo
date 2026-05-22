@@ -202,13 +202,16 @@ export const getExamenMomentenDateArrayResult = <InputType>(
   value: InputType,
   index: number,
 ) => {
+  console.log('#DH# value', value)
   if (Array.isArray(value)) {
     const val = value.at(index)
 
     return (val.DateTime as string)?.trim()
   }
-  if ((value as unknown as { _: string })?._) {
-    return ((value as unknown as { _: string })._ as string).trim()
+  if ((value as unknown as { DateTime: string })?.DateTime) {
+    return (
+      (value as unknown as { DateTime: string }).DateTime as string
+    ).trim()
   }
   return new Date(1970, 0, 1).toISOString()
 }
