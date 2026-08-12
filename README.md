@@ -117,6 +117,10 @@ Run a test using the inline controls of the test file.
 - Go to the `examenservices-fetcher-[acc|prd]` container and replace it by setting the correct version number that is written in the console during the previous command.
   It is good practice to first test the container in the acc environment.
 
+## Deploy web apps
+
+- In the `netlify.toml`, comment the ignore rule `#ignore ...`
+- Commit work and push. Netlify will pick this up and build and deploy the app.
 
 ## ShadCN library
 
