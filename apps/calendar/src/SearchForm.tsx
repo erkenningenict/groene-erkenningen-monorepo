@@ -22,6 +22,7 @@ import {
 import { MultiSelect } from "@repo/ui/multi-select";
 import { useState } from "react";
 import { NativeSelect } from "@repo/ui/native-select";
+import { Alert, AlertDescription, AlertTitle } from "@repo/ui/alert";
 
 type SearchFormProps = {
   label: string;
@@ -70,6 +71,15 @@ export default function SearchForm({ label, data }: SearchFormProps) {
   return (
     <div className="flex flex-col gap-4">
       <div ref={setContainer}></div>
+      <Alert variant="default">
+        <AlertTitle>Mededeling</AlertTitle>
+        <AlertDescription>
+          <p>
+            Vanaf 31 augustus 2026 is een nieuw platform beschikbaar. Tussen 25
+            en 28 augustus ontvangt u twee emails met meer informatie.
+          </p>
+        </AlertDescription>
+      </Alert>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
