@@ -1,5 +1,5 @@
 import { valibotResolver } from "@hookform/resolvers/valibot";
-import { Alert } from "@repo/ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "@repo/ui/alert";
 import { Button } from "@repo/ui/button";
 import {
   Form,
@@ -100,6 +100,15 @@ export default function SearchForm({
 
   return (
     <div className="flex flex-col gap-4">
+      <Alert variant="default">
+        <AlertTitle>Mededeling</AlertTitle>
+        <AlertDescription>
+          <p>
+            Vanaf 31 augustus 2026 is een nieuw platform beschikbaar. Tussen 25
+            en 28 augustus ontvangt u twee emails met meer informatie.
+          </p>
+        </AlertDescription>
+      </Alert>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
